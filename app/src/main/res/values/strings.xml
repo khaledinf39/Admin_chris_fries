@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">CF ADMIN</string>
+    <string name="save_">حفظ</string>
+    <string name="name">الإسم :</string>
+    <string name="code">الرمز :</string>
+    <string name="phone">الهاتف :</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="myOrders">طلباتي</string>
+    <string name="bay">شراء</string>
+    <string name="product">المنتج</string>
+    <string name="whight">الوزن</string>
+    <string name="order_nb">رقم الطلب</string>
+    <string name="order_date">تاريخ الطلب :</string>
+    <string name="order_count">الكمية المطلوبة</string>
+    <string name="order_talif">الكمية التالفة :</string>
+    <string name="welcome">مرحبا !</string>
+    <string name="order_details">قم بارسال تفاصيل طلبك</string>
+    <string name="cancel">إلغاء</string>
+
+    <string name="Myusers">عملائي</string>
+    <string name="add_procudts">إضافة منتج جديد !</string>
+    <string name="add_details">قم باضافة تفاصيل المنتج</string>
+    <string name="price">الثمن :</string>
+    <string name="delete">حذف</string>
+    <string name="exec">عذرا</string>
+    <string name="delete_text">هل انت متأكد أنك تريد حذف هذا العنصر</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="noItem">لا يوجد عناصر</string>
+    <string name="gomap">تتبع</string>
+    <string name="edite_compt">تعديل معلومات حساب المسؤول</string>
+    <string name="psw">كلمة السر</string>
+    <string name="repsw">اعد كتابة كلمة السر</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="380dp"
+    android:layout_height="130dp"
+    android:background="@drawable/bk_prod"
+    android:layout_margin="5dp"
+android:layout_gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<TextView
+    android:id="@+id/t1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:text="@string/exec"
+    android:fontFamily="@font/saudi"
+    android:textSize="26dp"
+    android:textColor="#E91E63"/>
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/t1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/delete_text"
+        android:fontFamily="@font/saudi"
+        android:textSize="22dp"
+        android:textColor="#414142"/>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      android:weightSum="2"
+      android:orientation="horizontal"
+      app:layout_constraintTop_toBottomOf="@+id/t2"
+      android:layout_marginTop="20dp">
+      <Button
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:id="@+id/delete"
+          android:text="@string/delete"
+          android:fontFamily="@font/saudi"
+          android:textColor="@color/white"
+          android:background="@drawable/bk_bay3"
+          android:textSize="22dp"/>
+      <Button
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:id="@+id/cancel"
+          android:text="@string/cancel"
+          android:fontFamily="@font/saudi"
+          android:textColor="@color/white"
+          android:background="@drawable/bk_cancel"
+          android:textSize="22dp"/>
+
+  </LinearLayout>
+</android.support.constraint.ConstraintLayout>
