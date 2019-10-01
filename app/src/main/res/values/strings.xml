@@ -16,7 +16,8 @@
     <string name="welcome">مرحبا !</string>
     <string name="order_details">قم بارسال تفاصيل طلبك</string>
     <string name="cancel">إلغاء</string>
-
+    <string name="checkout_amount">المبلغ المستلم</string>
+    <string name="checkout_txt">استلام مبلغ من العميل</string>
     <string name="Myusers">عملائي</string>
     <string name="add_procudts">إضافة منتج جديد !</string>
     <string name="add_details">قم باضافة تفاصيل المنتج</string>
@@ -34,4 +35,10 @@
     <string name="edite_compt">تعديل معلومات حساب المسؤول</string>
     <string name="psw">كلمة السر</string>
     <string name="repsw">اعد كتابة كلمة السر</string>
+    <string name="notify_key">AAAAGjJll2I:APA91bFGcdDP_DcFTO_UldA38OvKxDKob537dhAIUHe80LQDUzlNWsoWc7xVUvInudFkWEJpRhz9O8CLR0NxLP7vkAb3xLPaKlqAiC-ag_aajkW9j_n6SmOgvC8SHE4fvvfuFh2Iq06G</string>
+    <string name="ur_order_dane">تم انهاء طلبك بنجاح نشكرك على تعاملك معنا</string>
+    <string name="ur_order_accept">تم قبول طلبك بنجاح سنقوم قريبا باصاله لك</string>
+    <string name="ur_order_delete">تم حذف طلبك</string>
+    <string name="pay">دفع</string>
+    <string name="wallet">الدين</string>
 </resources>

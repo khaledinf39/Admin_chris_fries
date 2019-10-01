@@ -64,6 +64,7 @@ TextView nb_users;
     }
 
     private void fetch_data() {
+        reference.orderByChild("request_wail_nb");
     reference.addChildEventListener(new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

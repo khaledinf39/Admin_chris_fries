@@ -2,7 +2,32 @@ package com.kh_sof_dev.admin.Clasess;
 
 public class users {
     private  String name,phone,id,address;
-    private  String nb;
+    private  String nb,token;
+    private int request_wail_nb;
+private Double wallet;
+
+    public Double getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Double wallet) {
+        this.wallet = wallet;
+    }
+
+    public int getRequest_wail_nb() {
+        return request_wail_nb;
+    }
+
+    public void setRequest_wail_nb(int request_wail_nb) {
+        this.request_wail_nb = request_wail_nb;
+    }
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getNb() {
         return nb;

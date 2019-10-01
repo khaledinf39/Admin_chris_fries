@@ -57,7 +57,8 @@ private onEditeListenner mlistenner;
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 holder.name.setText(mItems.get(position).getName());
-holder.phone.setText(mItems.get(position).getPhone());
+        holder.phone.setText(mItems.get(position).getPhone());
+        holder.nb.setText(mItems.get(position).getRequest_wail_nb());
 mView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -89,12 +90,13 @@ mView.setOnClickListener(new View.OnClickListener() {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name,phone;
+        TextView name,phone,nb;
 
         public ViewHolder(View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.user_name);
                        phone=itemView.findViewById(R.id.phoneNB);
+            nb=itemView.findViewById(R.id.nb);
 
 
         }

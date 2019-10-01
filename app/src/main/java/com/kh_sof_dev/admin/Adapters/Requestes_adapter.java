@@ -12,15 +12,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kh_sof_dev.admin.Activities.Odrer_activity;
+import com.kh_sof_dev.admin.Clasess.Notifi;
 import com.kh_sof_dev.admin.Clasess.Product;
 import com.kh_sof_dev.admin.Clasess.Request;
+import com.kh_sof_dev.admin.Clasess.users;
 import com.kh_sof_dev.admin.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Requestes_adapter extends RecyclerView.Adapter<Requestes_adapter.ViewHolder> {
 
@@ -36,14 +50,16 @@ public class Requestes_adapter extends RecyclerView.Adapter<Requestes_adapter.Vi
 private onEditeListenner mlistenner;
 private FirebaseDatabase database;
 private DatabaseReference reference;
-private  String user_id;
-    public Requestes_adapter(Context context, List<Request> names, onEditeListenner listenner) {
+
+private users mUser;
+    public Requestes_adapter(Context context, List<Request> names,onEditeListenner listenner) {
         mItems = names;
         mContext = context;
         mlistenner=listenner;
         database=FirebaseDatabase.getInstance();
         reference=database.getReference("Requests");
-     user_id=Odrer_activity.userID;
+     mUser=Odrer_activity.mUser;
+
 
     }
     private View mView;
@@ -90,14 +106,65 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
         holder.delete.setVisibility(View.GONE);
         holder.validate.setVisibility(View.GONE);
     }
+    public void Post_notificition(String prodname,String body,String token) throws JSONException {
+        Notifi notifi_=new Notifi();
+        notifi_.setTitle(prodname);
+        notifi_.setBody(body);
+        notifi_.setToken(token);
 
+
+        RequestQueue queue = Volley.newRequestQueue(mContext);
+        String url ="https://fcm.googleapis.com/fcm/send";
+
+        // POST parameters
+
+        JSONObject cart=notifi_.Notifi();
+
+        Log.d("results",cart.toString());
+// Request a json response from the provided URL
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                com.android.volley.Request.Method.POST, url, cart,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        Log.d("results",jsonObject.toString());
+                    }
+                }, new Response.ErrorListener (){
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        }
+        ){
+            @Override
+            public Map<String, String> getHeaders()  {
+                Map<String, String>  Headers = new HashMap<String, String>();
+                Headers.put("Authorization",
+                        "key=" +
+                                mContext.getString(R.string.notify_key)
+                );
+//
+
+                return Headers;
+            }
+        };
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+        // prepare the Request
+
+    }
     private void Current_request(ViewHolder holder, final int position) {
         holder.validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                reference.child("Complete").child(user_id).push().setValue(mItems.get(position));
-                reference.child("Current").child(user_id).child(mItems.get(position).getId()).removeValue();
+                try {
+                    Post_notificition(mItems.get(position).getProduct(),mContext.getString(R.string.ur_order_dane),mUser.getToken());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                reference.child("Complete").child(mUser.getId()).push().setValue(mItems.get(position));
+                reference.child("Current").child(mUser.getId()).child(mItems.get(position).getId()).removeValue();
                 mItems.remove(  mItems.get(position));
                 notifyDataSetChanged();
             }
@@ -115,8 +182,13 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
         holder.validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reference.child("Current").child(user_id).push().setValue(mItems.get(position));
-                reference.child("Waite").child(user_id).child(mItems.get(position).getId()).removeValue();
+                try {
+                    Post_notificition(mItems.get(position).getProduct(),mContext.getString(R.string.ur_order_accept),mUser.getToken());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                reference.child("Current").child(mUser.getId()).push().setValue(mItems.get(position));
+                reference.child("Waite").child(mUser.getId()).child(mItems.get(position).getId()).removeValue();
                 mItems.remove(  mItems.get(position));
                 notifyDataSetChanged();
             }
@@ -131,6 +203,13 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
     }
 
     private void delete_popup(final String type, final int position) {
+
+        try {
+            Post_notificition(mItems.get(position).getProduct(),mContext.getString(R.string.ur_order_delete),mUser.getToken());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         final Dialog dialog=new Dialog(mContext);
         dialog.setContentView(R.layout.popup_delete);
 
@@ -139,8 +218,8 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
         delet_pop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               reference.child("Cancel").child(user_id).push().setValue(mItems.get(position));
-                reference.child(type).child(user_id).child(mItems.get(position).getId()).removeValue();
+               reference.child("Cancel").child(mUser.getId()).push().setValue(mItems.get(position));
+                reference.child(type).child(mUser.getId()).child(mItems.get(position).getId()).removeValue();
                 Toast.makeText(mContext,"تم الحذف بنجاح ",Toast.LENGTH_LONG).show();
                 mItems.remove( mItems.get(position));
                 notifyDataSetChanged();

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,12 +15,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.design.widget.TabLayout;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.kh_sof_dev.admin.Clasess.users;
 import com.kh_sof_dev.admin.Fragments.cancel_request;
 import com.kh_sof_dev.admin.Fragments.compte_request;
 import com.kh_sof_dev.admin.Fragments.current_request;
@@ -28,25 +35,27 @@ import com.kh_sof_dev.admin.R;
 
 public class Odrer_activity extends AppCompatActivity {
     public static String userID;
+    public static users mUser;
     private TextView name,phone,cod,address;
 private Button delete;
 
 
     private final String[] PAGE_TITLES = new String[]{
-            "الملغية",
-            "المكتملة",
-            "الحالية",
             "بإنتظار الموافقة",
+            "الحالية",
+
+            "المكتملة",
+            "الملغية",
 
 
 
     };
 
     private final Fragment[] PAGES = new Fragment[]{
-           new cancel_request(),
-            new compte_request(),
+           new waite_request(),
             new current_request(),
-            new waite_request()
+            new compte_request(),
+            new cancel_request()
     };
     public static FragmentManager fragmentManager;
     public static Context context;
@@ -64,6 +73,13 @@ back.setOnClickListener(new View.OnClickListener() {
     }
 });
 
+        final Button checkout=findViewById(R.id.pay);
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                check_outFun();
+            }
+        });
 final Button gotomap=findViewById(R.id.gomap);
 gotomap.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -88,11 +104,16 @@ gotomap.setOnClickListener(new View.OnClickListener() {
 
         Bundle bundle=getIntent().getExtras();
         if (bundle!=null){
+            mUser=new users();
             name.setText(bundle.getString("name"));
             userID=bundle.getString("id");
             cod.setText(bundle.getString("nb"));
             phone.setText(bundle.getString("phone"));
             address.setText(bundle.getString("address"));
+
+            mUser.setId(userID);
+           mUser.setToken(bundle.getString("token"));
+           mUser.setWallet(bundle.getDouble("wallet"));
 lat=bundle.getDouble("lat");
 lng=bundle.getDouble("lng");
             if (lat==0.0 && lng==0.0){
@@ -146,6 +167,60 @@ delete=findViewById(R.id.delete);
 
         tabLayout.setupWithViewPager(mViewPager);
 
+    }
+    private void add_wallet(final Double newPrice){
+        final FirebaseDatabase database=FirebaseDatabase.getInstance();
+        final DatabaseReference reference=database.getReference("Users").child(mUser.getId());
+        reference.child("wallet").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Double wallet=dataSnapshot.getValue(Double.class)-newPrice;
+                    if(wallet>0) {
+                        reference.child("wallet").setValue(wallet);
+                        Toast.makeText(getApplicationContext(),"تم اضافة المبلغ المستلم ",Toast.LENGTH_LONG).show();
+
+                    }else {
+                        Toast.makeText(getApplicationContext(),"المبلغ المستلم اكبر من الدين",Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void check_outFun() {
+        final Dialog dialog=new Dialog(getApplicationContext());
+        dialog.setContentView(R.layout.popup_checkout);
+        Button ok=dialog.findViewById(R.id.checkout_btn);
+        Button cancel=dialog.findViewById(R.id.cancel);
+        final EditText price=dialog.findViewById(R.id.price);
+        dialog.show();
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (price.getText().toString().isEmpty()){
+                    price.setError("المبلغ المستلم");
+                    return;
+                }
+                Double price_=Double.parseDouble(price.getText().toString());
+                if (price_!=0  ){
+                       add_wallet(price_);
+                }else {
+                    price.setError("المبلغ المستلم");
+                    return;
+                }
+            }
+        });
     }
 
 

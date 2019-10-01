@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "311302635188",
-    "firebase_url": "https://chrisfries-9e683.firebaseio.com",
-    "project_id": "chrisfries-9e683",
-    "storage_bucket": "chrisfries-9e683.appspot.com"
+    "project_number": "112514668386",
+    "firebase_url": "https://chrisfries-91280.firebaseio.com",
+    "project_id": "chrisfries-91280",
+    "storage_bucket": "chrisfries-91280.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:311302635188:android:91e51f1339b61d4b",
+        "mobilesdk_app_id": "1:112514668386:android:4b00155b73928078533e3b",
         "android_client_info": {
           "package_name": "com.kh_sof_dev.admin"
         }
       },
       "oauth_client": [
         {
-          "client_id": "311302635188-h0v7s02ql7jv4n4nq70q4u5cave57cik.apps.googleusercontent.com",
+          "client_id": "112514668386-08u9q7jhncca6a756olq8cbi47phsp1j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.kh_sof_dev.admin",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "311302635188-1pd4fo374ickelc8en78bqj20junl37n.apps.googleusercontent.com",
+          "client_id": "112514668386-4b9heekfns323rkbrla17hae4au44j7b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAGmIEaYJXD5U7-op2bWEI39Zyf38Rnqfc"
+          "current_key": "AIzaSyAEZlBF4-lrVTBkuVD158i89wOh53o983I"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "311302635188-1pd4fo374ickelc8en78bqj20junl37n.apps.googleusercontent.com",
+              "client_id": "112514668386-4b9heekfns323rkbrla17hae4au44j7b.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -45,14 +45,14 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:311302635188:android:e9c1f0d77f15d482",
+        "mobilesdk_app_id": "1:112514668386:android:ec0329bd84dd7a7a533e3b",
         "android_client_info": {
           "package_name": "com.kh_sof_dev.chris_fries"
         }
       },
       "oauth_client": [
         {
-          "client_id": "311302635188-12ihjqv0u5ca4fitj1cuatt9o8lou4uh.apps.googleusercontent.com",
+          "client_id": "112514668386-rptenv7f30a174lhafvt9hfjbukerkl4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.kh_sof_dev.chris_fries",
@@ -60,20 +60,20 @@
           }
         },
         {
-          "client_id": "311302635188-1pd4fo374ickelc8en78bqj20junl37n.apps.googleusercontent.com",
+          "client_id": "112514668386-4b9heekfns323rkbrla17hae4au44j7b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAGmIEaYJXD5U7-op2bWEI39Zyf38Rnqfc"
+          "current_key": "AIzaSyAEZlBF4-lrVTBkuVD158i89wOh53o983I"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "311302635188-1pd4fo374ickelc8en78bqj20junl37n.apps.googleusercontent.com",
+              "client_id": "112514668386-4b9heekfns323rkbrla17hae4au44j7b.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
