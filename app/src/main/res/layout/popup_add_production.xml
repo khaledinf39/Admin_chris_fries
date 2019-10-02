@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bk_prod"
+    android:layout_margin="5dp"
+    android:padding="0dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<TextView
+    android:id="@+id/t1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:text="@string/welcome"
+    android:fontFamily="@font/saudi"
+    android:textSize="26dp"
+    android:textColor="#277C03"/>
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/t1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/production_txt"
+        android:fontFamily="@font/saudi"
+        android:textSize="22dp"
+        android:textColor="#414142"/>
+    <TextView
+        android:layout_marginRight="10dp"
+        android:id="@+id/t3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       app:layout_constraintTop_toBottomOf="@+id/t2"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:text="@string/production1"
+        android:fontFamily="@font/saudi"
+        android:textSize="24dp"
+        android:textColor="#3F51B5"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+
+        android:digits="1234567890."
+        android:id="@+id/count"
+        android:layout_width="200dp"
+        android:gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/t2"
+        app:layout_constraintRight_toLeftOf="@+id/t3"
+
+        android:hint=" 100 "
+        android:fontFamily="@font/saudi"
+        android:textSize="24dp"
+        android:textColor="#3F51B5"/>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:weightSum="2"
+      android:orientation="horizontal"
+      app:layout_constraintTop_toBottomOf="@+id/price"
+      android:layout_marginTop="20dp">
+      <Button
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:id="@+id/checkout_btn"
+          android:text="@string/save_"
+          android:fontFamily="@font/saudi"
+          android:textColor="@color/white"
+          android:background="@drawable/bk_bay2"
+          android:textSize="22dp"/>
+      <Button
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:id="@+id/cancel"
+          android:text="@string/cancel"
+          android:fontFamily="@font/saudi"
+          android:textColor="@color/white"
+          android:background="@drawable/bk_cancel"
+          android:textSize="22dp"/>
+
+  </LinearLayout>
+</android.support.constraint.ConstraintLayout>

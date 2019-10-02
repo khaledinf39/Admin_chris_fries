@@ -2,6 +2,7 @@ package com.kh_sof_dev.admin.Adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,16 +10,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.kh_sof_dev.admin.Activities.Production;
 import com.kh_sof_dev.admin.Clasess.Product;
+import com.kh_sof_dev.admin.Clasess.production;
 import com.kh_sof_dev.admin.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.zip.Inflater;
 
@@ -49,6 +59,84 @@ private onEditeListenner mlistenner;
         return new ViewHolder(view); // Inflater means reading a layout XML
     }
 
+    private void addProductionFun(final String prod_id) {
+        final Dialog dialog=new Dialog(mContext);
+        dialog.setContentView(R.layout.popup_add_production);
+        Button ok=dialog.findViewById(R.id.checkout_btn);
+        Button cancel=dialog.findViewById(R.id.cancel);
+        final EditText price=dialog.findViewById(R.id.production);
+        dialog.show();
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (price.getText().toString().isEmpty()){
+                    price.setError("الكمية المنتجة");
+                    dialog.dismiss();
+                    return;
+                }
+                Double price_=Double.parseDouble(price.getText().toString());
+                if (price_!=0  ){
+                    add_todata_base(price_,prod_id);
+                    save_archiv(price_,prod_id);
+                    dialog.dismiss();
+                }else {
+                    price.setError("الكمية المنتجة");
+                    dialog.dismiss();
+                    return;
+                }
+            }
+        });
+    }
+
+    private void add_todata_base(final Double new_weight, String prod_id) {
+        FirebaseDatabase database =FirebaseDatabase.getInstance();
+        final DatabaseReference reference=database.getReference("Products").child(prod_id).child("weight");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Double weight=dataSnapshot.getValue(Double.class)+new_weight;
+                    reference.setValue(weight);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void save_archiv(final Double new_weight, String prod_id) {
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+        FirebaseDatabase database =FirebaseDatabase.getInstance();
+        final DatabaseReference reference=database.getReference("Products").child(prod_id)
+                .child("Productions").child(dateFormat.format(date)).child("production");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Double weight=dataSnapshot.getValue(Double.class)+new_weight;
+                    reference.setValue(weight);
+                }else {
+                    reference.setValue(new_weight);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     @Override
@@ -106,6 +194,21 @@ holder.delete.setOnClickListener(new View.OnClickListener() {
     }
 });
 
+holder.add.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        addProductionFun(mItems.get(position).getName());
+    }
+});
+
+mView.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent=new Intent(mContext, Production.class);
+        intent.putExtra("prod",mItems.get(position).getId());
+        mContext.startActivity(intent);
+    }
+});
     }
 
     @Override
@@ -116,7 +219,7 @@ holder.delete.setOnClickListener(new View.OnClickListener() {
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView name,weight,price;
-   ImageView delete,Edite;
+   ImageView delete,Edite,add;
         public ViewHolder(View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.prod_name);
@@ -125,6 +228,7 @@ holder.delete.setOnClickListener(new View.OnClickListener() {
 
             delete=itemView.findViewById(R.id.delete);
             Edite=itemView.findViewById(R.id.edit);
+            add=itemView.findViewById(R.id.add);
 
 
         }

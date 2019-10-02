@@ -33,6 +33,15 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:src="@android:drawable/ic_menu_edit"
         android:id="@+id/edit"
         android:layout_marginLeft="0dp"/>
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="15dp"
+        app:layout_constraintLeft_toRightOf="@+id/edit"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@android:drawable/ic_menu_add"
+        android:id="@+id/add"
+        android:layout_marginLeft="0dp"/>
     <TextView
         android:textColor="@color/dark_mint"
         android:id="@+id/t1"

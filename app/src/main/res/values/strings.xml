@@ -41,4 +41,8 @@
     <string name="ur_order_delete">تم حذف طلبك</string>
     <string name="pay">دفع</string>
     <string name="wallet">الدين</string>
+    <string name="production">حركة الإنتاج</string>
+    <string name="production1">الكمية المنتجة</string>
+    <string name="date">التاريخ</string>
+    <string name="production_txt">إنتاج كمية جديدة</string>
 </resources>

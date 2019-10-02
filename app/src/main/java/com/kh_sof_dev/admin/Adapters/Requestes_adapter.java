@@ -2,6 +2,7 @@ package com.kh_sof_dev.admin.Adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,8 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kh_sof_dev.admin.Activities.Odrer_activity;
 import com.kh_sof_dev.admin.Clasess.Notifi;
 import com.kh_sof_dev.admin.Clasess.Product;
@@ -29,7 +33,10 @@ import com.kh_sof_dev.admin.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -165,6 +172,8 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
                 }
                 reference.child("Complete").child(mUser.getId()).push().setValue(mItems.get(position));
                 reference.child("Current").child(mUser.getId()).child(mItems.get(position).getId()).removeValue();
+                save_archiv(mItems.get(position).getCount(),mItems.get(position).getTalif(),
+                        mItems.get(position).getProd_id());
                 mItems.remove(  mItems.get(position));
                 notifyDataSetChanged();
             }
@@ -198,6 +207,48 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
             @Override
             public void onClick(View v) {
                 delete_popup("Waite",position);
+            }
+        });
+    }
+    private void save_archiv(final Double new_weight, final Double talif, String prod_id) {
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+        FirebaseDatabase database =FirebaseDatabase.getInstance();
+        final DatabaseReference reference=database.getReference("Products").child(prod_id)
+                .child("Productions").child(dateFormat.format(date)).child("production");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Double weight=dataSnapshot.getValue(Double.class) - new_weight;
+                    reference.setValue(weight);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        final DatabaseReference reference2=database.getReference("Products").child(prod_id)
+                .child("Productions").child(dateFormat.format(date)).child("talif");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Double weight=dataSnapshot.getValue(Double.class)+talif;
+                    reference.setValue(weight);
+                }else {
+                    reference.setValue(talif);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }

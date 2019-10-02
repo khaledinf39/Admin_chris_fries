@@ -210,13 +210,16 @@ delete=findViewById(R.id.delete);
             public void onClick(View v) {
                 if (price.getText().toString().isEmpty()){
                     price.setError("المبلغ المستلم");
+                    dialog.dismiss();
                     return;
                 }
                 Double price_=Double.parseDouble(price.getText().toString());
                 if (price_!=0  ){
                        add_wallet(price_);
+                       dialog.dismiss();
                 }else {
                     price.setError("المبلغ المستلم");
+                    dialog.dismiss();
                     return;
                 }
             }
