@@ -54,6 +54,7 @@ private onEditeListenner mlistenner;
 holder.date.setText(mItems.get(position).getDate());
         holder.talif.setText(mItems.get(position).getTalif().toString());
         holder.proct.setText(mItems.get(position).getProduction().toString());
+        holder.order.setText(mItems.get(position).getOrder().toString());
 
 
 
@@ -66,13 +67,14 @@ holder.date.setText(mItems.get(position).getDate());
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView proct,talif,date;
+        TextView proct,talif,date,order;
 
         public ViewHolder(View itemView) {
             super(itemView);
             proct=itemView.findViewById(R.id.production);
                        talif=itemView.findViewById(R.id.talef);
             date=itemView.findViewById(R.id.date);
+            order=itemView.findViewById(R.id.order);
 
 
         }

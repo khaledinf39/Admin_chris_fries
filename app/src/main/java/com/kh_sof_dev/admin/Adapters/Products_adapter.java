@@ -64,7 +64,7 @@ private onEditeListenner mlistenner;
         dialog.setContentView(R.layout.popup_add_production);
         Button ok=dialog.findViewById(R.id.checkout_btn);
         Button cancel=dialog.findViewById(R.id.cancel);
-        final EditText price=dialog.findViewById(R.id.production);
+        final EditText price=dialog.findViewById(R.id.count);
         dialog.show();
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +115,7 @@ private onEditeListenner mlistenner;
 
     private void save_archiv(final Double new_weight, String prod_id) {
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         FirebaseDatabase database =FirebaseDatabase.getInstance();
         final DatabaseReference reference=database.getReference("Products").child(prod_id)
@@ -197,7 +197,7 @@ holder.delete.setOnClickListener(new View.OnClickListener() {
 holder.add.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        addProductionFun(mItems.get(position).getName());
+        addProductionFun(mItems.get(position).getId());
     }
 });
 

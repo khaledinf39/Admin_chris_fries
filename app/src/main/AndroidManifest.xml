@@ -14,6 +14,8 @@
         <activity android:name=".Activities.Users_activity"></activity>
         <activity android:name=".Activities.Odrer_activity" />
         <activity android:name=".Activities.SignUP_phoneNumer" />
+        <activity android:name=".Activities.AllOdrer_activity" />
+
         <activity android:name=".Activities.LogoAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

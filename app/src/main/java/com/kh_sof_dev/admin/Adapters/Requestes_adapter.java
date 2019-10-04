@@ -27,6 +27,7 @@ import com.kh_sof_dev.admin.Activities.Odrer_activity;
 import com.kh_sof_dev.admin.Clasess.Notifi;
 import com.kh_sof_dev.admin.Clasess.Product;
 import com.kh_sof_dev.admin.Clasess.Request;
+import com.kh_sof_dev.admin.Clasess.production;
 import com.kh_sof_dev.admin.Clasess.users;
 import com.kh_sof_dev.admin.R;
 
@@ -172,8 +173,14 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
                 }
                 reference.child("Complete").child(mUser.getId()).push().setValue(mItems.get(position));
                 reference.child("Current").child(mUser.getId()).child(mItems.get(position).getId()).removeValue();
-                save_archiv(mItems.get(position).getCount(),mItems.get(position).getTalif(),
-                        mItems.get(position).getProd_id());
+
+                save_archiv(
+                        mItems.get(position).getCount(),
+                        mItems.get(position).getTalif(),
+                        mItems.get(position).getProd_id()
+                );
+
+
                 mItems.remove(  mItems.get(position));
                 notifyDataSetChanged();
             }
@@ -198,6 +205,7 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
                 }
                 reference.child("Current").child(mUser.getId()).push().setValue(mItems.get(position));
                 reference.child("Waite").child(mUser.getId()).child(mItems.get(position).getId()).removeValue();
+                save_requestNB();
                 mItems.remove(  mItems.get(position));
                 notifyDataSetChanged();
             }
@@ -210,39 +218,47 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
             }
         });
     }
+
+    private void save_requestNB() {
+        final FirebaseDatabase database=FirebaseDatabase.getInstance();
+        final DatabaseReference reference=database.getReference("Users").child(mUser.getId()).child("request_wail_nb");
+reference.addListenerForSingleValueEvent(new ValueEventListener() {
+    @Override
+    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        if (dataSnapshot.exists()){
+            int nb=dataSnapshot.getValue(int.class)-1;
+            reference.setValue(nb);
+        }
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+    }
+});
+    }
+
     private void save_archiv(final Double new_weight, final Double talif, String prod_id) {
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         FirebaseDatabase database =FirebaseDatabase.getInstance();
         final DatabaseReference reference=database.getReference("Products").child(prod_id)
-                .child("Productions").child(dateFormat.format(date)).child("production");
+                .child("Productions").child(dateFormat.format(date));
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-                    Double weight=dataSnapshot.getValue(Double.class) - new_weight;
-                    reference.setValue(weight);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-        final DatabaseReference reference2=database.getReference("Products").child(prod_id)
-                .child("Productions").child(dateFormat.format(date)).child("talif");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    Double weight=dataSnapshot.getValue(Double.class)+talif;
-                    reference.setValue(weight);
+                    production production_ =dataSnapshot.getValue(production.class);
+                    production_.setOrder(production_.getOrder()+new_weight);
+                    production_.setTalif(production_.getTalif()+talif);
+                    reference.setValue(production_);
                 }else {
-                    reference.setValue(talif);
+
+                    production production_=new production();
+                    production_.setTalif(talif);
+                    production_.setOrder(new_weight);
+                    reference.setValue(production_);
                 }
             }
 
@@ -251,6 +267,9 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
 
             }
         });
+
+
+
     }
 
     private void delete_popup(final String type, final int position) {

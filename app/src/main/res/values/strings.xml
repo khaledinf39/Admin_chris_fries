@@ -13,6 +13,8 @@
     <string name="order_date">تاريخ الطلب :</string>
     <string name="order_count">الكمية المطلوبة</string>
     <string name="order_talif">الكمية التالفة :</string>
+
+    <string name="talif"> الكمية التالفة</string>
     <string name="welcome">مرحبا !</string>
     <string name="order_details">قم بارسال تفاصيل طلبك</string>
     <string name="cancel">إلغاء</string>
@@ -45,4 +47,6 @@
     <string name="production1">الكمية المنتجة</string>
     <string name="date">التاريخ</string>
     <string name="production_txt">إنتاج كمية جديدة</string>
+    <string name="All_orders">كل الطلبات</string>
+    <string name="filter">تصفية</string>
 </resources>

@@ -3,7 +3,7 @@ package com.kh_sof_dev.admin.Clasess;
 public class Request {
 
     private String id,date,product,prod_id;
-private Double weight,price,count,talif;
+private Double weight=0.0,price=0.0,count=0.0,talif=0.0;
 private int type;
 
     private  String nb;

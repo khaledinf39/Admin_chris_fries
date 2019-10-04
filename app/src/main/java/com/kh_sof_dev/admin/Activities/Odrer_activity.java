@@ -36,7 +36,7 @@ import com.kh_sof_dev.admin.R;
 public class Odrer_activity extends AppCompatActivity {
     public static String userID;
     public static users mUser;
-    private TextView name,phone,cod,address;
+    private TextView name,phone,cod,address,wallet;
 private Button delete;
 
 
@@ -98,6 +98,7 @@ gotomap.setOnClickListener(new View.OnClickListener() {
     }
 });
         name=findViewById(R.id.user_name);
+        wallet=findViewById(R.id.wallet);
         phone=findViewById(R.id.phone);
         cod=findViewById(R.id.code);
         address=findViewById(R.id.address);
@@ -114,6 +115,7 @@ gotomap.setOnClickListener(new View.OnClickListener() {
             mUser.setId(userID);
            mUser.setToken(bundle.getString("token"));
            mUser.setWallet(bundle.getDouble("wallet"));
+           wallet.setText(mUser.getWallet().toString());
 lat=bundle.getDouble("lat");
 lng=bundle.getDouble("lng");
             if (lat==0.0 && lng==0.0){
@@ -175,14 +177,17 @@ delete=findViewById(R.id.delete);
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-                    Double wallet=dataSnapshot.getValue(Double.class)-newPrice;
-                    if(wallet>0) {
-                        reference.child("wallet").setValue(wallet);
+                    Double wallet_=dataSnapshot.getValue(Double.class)-newPrice;
+                    if(wallet_>0) {
+                        reference.child("wallet").setValue(wallet_);
                         Toast.makeText(getApplicationContext(),"تم اضافة المبلغ المستلم ",Toast.LENGTH_LONG).show();
-
+                        wallet.setText(wallet_.toString());
                     }else {
                         Toast.makeText(getApplicationContext(),"المبلغ المستلم اكبر من الدين",Toast.LENGTH_LONG).show();
                     }
+                }else {
+                    Toast.makeText(getApplicationContext(),"المبلغ المستلم اكبر من الدين",Toast.LENGTH_LONG).show();
+
                 }
             }
 
@@ -193,7 +198,7 @@ delete=findViewById(R.id.delete);
         });
     }
     private void check_outFun() {
-        final Dialog dialog=new Dialog(getApplicationContext());
+        final Dialog dialog=new Dialog(this);
         dialog.setContentView(R.layout.popup_checkout);
         Button ok=dialog.findViewById(R.id.checkout_btn);
         Button cancel=dialog.findViewById(R.id.cancel);

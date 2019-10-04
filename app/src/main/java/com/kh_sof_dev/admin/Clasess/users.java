@@ -4,7 +4,7 @@ public class users {
     private  String name,phone,id,address;
     private  String nb,token;
     private int request_wail_nb;
-private Double wallet;
+private Double wallet=0.0;
 
     public Double getWallet() {
         return wallet;

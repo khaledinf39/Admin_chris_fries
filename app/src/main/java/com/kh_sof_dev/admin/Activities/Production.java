@@ -1,5 +1,6 @@
 package com.kh_sof_dev.admin.Activities;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,19 @@ public class Production extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_production);
+
+        productionList=new ArrayList<>();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+               if (productionList.size()==0){
+                   findViewById(R.id.progress).setVisibility(View.GONE);
+                   findViewById(R.id.noItem).setVisibility(View.VISIBLE);
+               }
+
+            }
+        }, 5000);
         back=findViewById(R.id.back_btn);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +56,7 @@ public class Production extends AppCompatActivity {
         RV=findViewById(R.id.RV);
         RV.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.
                 VERTICAL,true));
-       productionList=new ArrayList<>();
+
        adapter=new Production_adapter(getApplicationContext(), productionList, null);
        RV.setAdapter(adapter);
        Bundle bundle=getIntent().getExtras();
@@ -59,7 +73,11 @@ public class Production extends AppCompatActivity {
         reference.child("Productions").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if (productionList.size()==0){
+                    findViewById(R.id.progress).setVisibility(View.GONE);
+                }
                 production production_=dataSnapshot.getValue(production.class);
+                production_.setDate(dataSnapshot.getKey());
                 productionList.add(production_);
                 adapter.notifyDataSetChanged();
             }

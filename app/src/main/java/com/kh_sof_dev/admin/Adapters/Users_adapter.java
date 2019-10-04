@@ -58,7 +58,7 @@ private onEditeListenner mlistenner;
         Log.d(TAG, "onBindViewHolder: called.");
 holder.name.setText(mItems.get(position).getName());
         holder.phone.setText(mItems.get(position).getPhone());
-        holder.nb.setText(mItems.get(position).getRequest_wail_nb());
+        holder.nb.setText(mItems.get(position).getRequest_wail_nb()+"");
 mView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -68,6 +68,8 @@ mView.setOnClickListener(new View.OnClickListener() {
         intent.putExtra("phone",mItems.get(position).getPhone());
         intent.putExtra("id",mItems.get(position).getId());
         intent.putExtra("nb",mItems.get(position).getNb());
+        intent.putExtra("token",mItems.get(position).getToken());
+        intent.putExtra("wallet",mItems.get(position).getWallet());
 
        try {
            Location_ location=mItems.get(position).getLocation();

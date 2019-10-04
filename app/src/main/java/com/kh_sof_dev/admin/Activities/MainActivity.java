@@ -22,17 +22,22 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.kh_sof_dev.admin.Adapters.Products_adapter;
 import com.kh_sof_dev.admin.Clasess.Admin;
 import com.kh_sof_dev.admin.Clasess.Product;
+import com.kh_sof_dev.admin.Clasess.production;
 import com.kh_sof_dev.admin.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-private Button save_btn,cancel_btn,my_users,logout;
+private Button save_btn,cancel_btn,my_users,logout,Allorder;
 private EditText prod_name,prod_wieght,price;
 private FirebaseDatabase database;
 private DatabaseReference reference;
@@ -61,13 +66,20 @@ take_FCMtoken();
 
 productList=new ArrayList<>();
 my_users=findViewById(R.id.Myusers);
-logout=findViewById(R.id.logout);
-my_users.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        startActivity(new Intent(MainActivity.this,Users_activity.class));
-    }
-});
+        logout=findViewById(R.id.logout);
+        my_users.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,Users_activity.class));
+            }
+        });
+        Allorder=findViewById(R.id.Allorder);
+        Allorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,AllOdrer_activity.class));
+            }
+        });
 logout.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -221,12 +233,7 @@ fesh_data();
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                Product product=dataSnapshot.getValue(Product.class);
-                product.setId(dataSnapshot.getKey());
-                Log.d("prod_id 1",dataSnapshot.getKey());
-                productList.add(product);
-                Log.d("product :",product.getName()+"  "+product.getId());
-                adapter.notifyDataSetChanged();
+//
             }
 
             @Override
@@ -293,7 +300,14 @@ fesh_data();
             return;
         }
         Product product=new Product(p_name,Double.parseDouble(p_weight),Double.parseDouble(p_price));
-reference.child("Products").push().setValue(product);
+        String key=reference.child("Products").push().getKey();
+reference.child("Products").child(key).setValue(product);
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        production prod=new production(0.0,0.0);
+        reference.child("Products").child(key).child("Productions").child(dateFormat.format(date)).setValue(prod);
+
         Toast.makeText(getApplicationContext(),"تم حفظ المنتج بنجاح ",Toast.LENGTH_LONG).show();
         cleare_fun();
 

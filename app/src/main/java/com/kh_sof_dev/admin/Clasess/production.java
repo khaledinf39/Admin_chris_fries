@@ -2,15 +2,23 @@ package com.kh_sof_dev.admin.Clasess;
 
 public class production {
     private String date;
-    private Double talif,production;
+    private Double talif=0.0,production=0.0,order=0.0;
 
     public production() {
     }
 
-    public production(String date, Double talif, Double production) {
-        this.date = date;
+    public production( Double talif, Double production) {
+
         this.talif = talif;
         this.production = production;
+    }
+
+    public Double getOrder() {
+        return order;
+    }
+
+    public void setOrder(Double order) {
+        this.order = order;
     }
 
     public String getDate() {
