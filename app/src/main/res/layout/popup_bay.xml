@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bk_prod2"
+    android:background="@drawable/bk_prod"
     android:layout_margin="5dp"
     android:padding="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@+id/t1"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/checkout_txt"
+        android:text="@string/order_details"
         android:fontFamily="@font/saudi"
         android:textSize="22dp"
         android:textColor="#414142"/>
@@ -37,7 +37,7 @@
        app:layout_constraintTop_toBottomOf="@+id/t2"
         app:layout_constraintRight_toRightOf="parent"
 
-        android:text="@string/checkout_amount"
+        android:text="@string/order_count"
         android:fontFamily="@font/saudi"
         android:textSize="24dp"
         android:textColor="#3F51B5"
@@ -46,7 +46,7 @@
     <EditText
 
         android:digits="1234567890."
-        android:id="@+id/price"
+        android:id="@+id/order_count"
         android:layout_width="200dp"
         android:gravity="right"
         android:layout_marginRight="10dp"
@@ -54,11 +54,38 @@
         app:layout_constraintTop_toBottomOf="@+id/t2"
         app:layout_constraintRight_toLeftOf="@+id/t3"
 
-        android:hint=" 100 "
+        android:hint=" 100 pcs"
         android:fontFamily="@font/saudi"
         android:textSize="24dp"
         android:textColor="#3F51B5"/>
+    <EditText
 
+        android:digits="1234567890."
+        android:id="@+id/order_talif"
+        android:layout_width="200dp"
+        android:gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/t3"
+        app:layout_constraintRight_toLeftOf="@+id/t4"
+
+        android:hint=" 10 pcs"
+        android:fontFamily="@font/saudi"
+        android:textSize="24dp"
+        android:textColor="#E91E63"/>
+    <TextView
+        android:layout_marginRight="10dp"
+        android:id="@+id/t4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/t3"
+        android:layout_marginTop="10dp"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:text="@string/order_talif"
+        android:fontFamily="@font/saudi"
+        android:textSize="24dp"
+        android:textColor="#E91E63"/>
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -66,14 +93,14 @@
       app:layout_constraintRight_toRightOf="parent"
       android:weightSum="2"
       android:orientation="horizontal"
-      app:layout_constraintTop_toBottomOf="@+id/price"
+      app:layout_constraintTop_toBottomOf="@+id/t4"
       android:layout_marginTop="20dp">
       <Button
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:id="@+id/checkout_btn"
-          android:text="@string/pay"
+          android:id="@+id/bay"
+          android:text="@string/bay"
           android:fontFamily="@font/saudi"
           android:textColor="@color/white"
           android:background="@drawable/bk_bay2"

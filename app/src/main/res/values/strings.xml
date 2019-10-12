@@ -34,7 +34,7 @@
     <string name="email">البريد الالكتروني</string>
     <string name="noItem">لا يوجد عناصر</string>
     <string name="gomap">تتبع</string>
-    <string name="edite_compt">تعديل معلومات حساب المسؤول</string>
+    <string name="edite_compt"> معلومات حساب المسؤول</string>
     <string name="psw">كلمة السر</string>
     <string name="repsw">اعد كتابة كلمة السر</string>
     <string name="notify_key">AAAAGjJll2I:APA91bFGcdDP_DcFTO_UldA38OvKxDKob537dhAIUHe80LQDUzlNWsoWc7xVUvInudFkWEJpRhz9O8CLR0NxLP7vkAb3xLPaKlqAiC-ag_aajkW9j_n6SmOgvC8SHE4fvvfuFh2Iq06G</string>
@@ -49,4 +49,31 @@
     <string name="production_txt">إنتاج كمية جديدة</string>
     <string name="All_orders">كل الطلبات</string>
     <string name="filter">تصفية</string>
+    <string name="MAL">ادارة قائمة المسؤلين</string>
+    <string name="checkout">اضافة الدفع للمستخدمين</string>
+    <string name="MO">ادارة قائمة الطلبات</string>
+    <string name="block">حظر مستخدمين</string>
+    <string name="Production">اضافة انتاج يومي</string>
+    <string name="MPL">ادارة قائمة المنتجات</string>
+    <string name="add_order">اضافة طلب</string>
+    <string name="point">تحديد موعد التوصيل</string>
+    <string name="pointDay">يوم الزيارة</string>
+    <string name="indate">من تاريخ yyyy/MM/dd  </string>
+    <string name="todate">الى تاريخ yyyy/MM/dd  </string>
+    <array name="pointDay">
+        <item>الكل</item>
+        <item>السبت</item>
+        <item>الأحد</item>
+        <item>الإثنين</item>
+        <item>الثلاثاء</item>
+        <item>الإربعاء</item>
+        <item>الخميس</item>
+        <item>الجمعة</item>
+    </array>
+    <array name="orderType">
+        <item>بإنتظار الموافقة</item>
+        <item>الحالية</item>
+        <item>المكتملة</item>
+        <item>الملغية</item>
+    </array>
 </resources>

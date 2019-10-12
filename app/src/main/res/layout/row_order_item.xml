@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="130dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="10dp"
     android:paddingRight="10dp"
@@ -26,6 +26,7 @@
         android:id="@+id/validate"
         android:layout_marginLeft="0dp"/>
     <TextView
+        android:textColor="@color/dark_mint"
         android:id="@+id/t1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +35,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/saudi"/>
     <TextView
+        android:textColor="@color/dark_mint"
+
         android:id="@+id/order_nb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,6 +48,8 @@
 
 
     <TextView
+        android:textColor="@color/dark_mint"
+
         android:id="@+id/t2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,6 +58,8 @@
         app:layout_constraintTop_toBottomOf="@+id/t1"
         android:fontFamily="@font/saudi"/>
     <TextView
+        android:textColor="@color/dark_mint"
+
         android:id="@+id/order_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +70,9 @@
         android:fontFamily="@font/saudi"/>
 
     <TextView
-    android:id="@+id/t3"
+        android:textColor="@color/dark_mint"
+
+        android:id="@+id/t3"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/product"
@@ -71,6 +80,8 @@
     app:layout_constraintTop_toBottomOf="@+id/t2"
     android:fontFamily="@font/saudi"/>
     <TextView
+        android:textColor="@color/dark_mint"
+
         android:id="@+id/prod_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,6 +91,8 @@
         app:layout_constraintTop_toBottomOf="@+id/t2"
         android:fontFamily="@font/saudi"/>
     <TextView
+        android:textColor="@color/dark_mint"
+
         android:id="@+id/t4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,15 +101,19 @@
         app:layout_constraintTop_toBottomOf="@+id/t3"
         android:fontFamily="@font/saudi"/>
     <TextView
+        android:textColor="@color/dark_mint"
+
         android:id="@+id/order_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="500 KG"
+        android:text="500 pcs"
         app:layout_constraintRight_toLeftOf="@+id/t4"
         android:layout_marginRight="10dp"
         app:layout_constraintTop_toBottomOf="@+id/t3"
         android:fontFamily="@font/saudi"/>
     <TextView
+        android:textColor="@color/dark_mint"
+
         android:id="@+id/t5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,6 +122,8 @@
         app:layout_constraintTop_toBottomOf="@+id/t4"
         android:fontFamily="@font/saudi"/>
     <TextView
+        android:textColor="@color/dark_mint"
+
         android:id="@+id/order_talif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

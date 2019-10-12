@@ -51,8 +51,10 @@ RecyclerView list;
             @Override
             public void run() {
 
-                view.findViewById(R.id.progress).setVisibility(View.GONE);
-                view.findViewById(R.id.noItem).setVisibility(View.VISIBLE);
+               if (requestList.size()==0){
+                   view.findViewById(R.id.progress).setVisibility(View.GONE);
+                   view.findViewById(R.id.noItem).setVisibility(View.VISIBLE);
+               }
 
             }
         }, 5000);

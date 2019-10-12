@@ -9,13 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.Production"></activity>
+        <activity android:name=".Activities.Admins_activity"></activity>
+        <activity android:name=".Activities.Production" />
         <activity android:name=".Activities.login_admin" />
-        <activity android:name=".Activities.Users_activity"></activity>
+        <activity android:name=".Activities.Users_activity" />
         <activity android:name=".Activities.Odrer_activity" />
         <activity android:name=".Activities.SignUP_phoneNumer" />
         <activity android:name=".Activities.AllOdrer_activity" />
-
         <activity android:name=".Activities.LogoAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainActivity"></activity>
+        <activity android:name=".Activities.MainActivity" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

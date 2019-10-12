@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/logo_back">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/close_btn"/>
+
+
+            <ScrollView
+                app:layout_constraintTop_toBottomOf="@+id/close_btn"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="match_parent"
+                android:paddingBottom="50dp"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/noItem"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/noItem"
+                        android:fontFamily="@font/saudi"
+                        android:textSize="20dp"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="20dp"/>
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/progress"
+
+                        />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/RV"
+                        tools:listitem="@layout/row_produt_items"
+                        android:layout_marginBottom="100dp"></android.support.v7.widget.RecyclerView>
+
+                </RelativeLayout>
+            </ScrollView>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

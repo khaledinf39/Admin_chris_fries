@@ -13,5 +13,9 @@
         <item name="android:textColor">#F44336</item>
 
     </style>
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
 
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/saudi</item>
+        <item name="android:textColor">@color/dark_mint</item>
+    </style>
 </resources>

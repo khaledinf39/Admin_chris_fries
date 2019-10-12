@@ -84,6 +84,10 @@ private users mUser;
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
+        if (!users.getpermissions(mContext,"MO")){
+            holder.delete.setVisibility(View.GONE);
+            holder.validate.setVisibility(View.GONE);
+        }
 holder.product.setText(mItems.get(position).getProduct());
         holder.id.setText(mItems.get(position).getNb());
         holder.date.setText(mItems.get(position).getDate());

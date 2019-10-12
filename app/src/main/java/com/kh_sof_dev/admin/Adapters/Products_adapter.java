@@ -3,10 +3,12 @@ package com.kh_sof_dev.admin.Adapters;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.PointerIcon;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -32,6 +34,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.zip.Inflater;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Products_adapter extends RecyclerView.Adapter<Products_adapter.ViewHolder> {
 
     public interface onEditeListenner{
@@ -41,14 +45,16 @@ public class Products_adapter extends RecyclerView.Adapter<Products_adapter.View
 
     //vars
     private List<Product> mItems = new ArrayList<>();
-
+private String mPermissions;
     private Context mContext;
 private onEditeListenner mlistenner;
+public Boolean bay=false;
     public Products_adapter(Context context, List<Product> names,onEditeListenner listenner) {
         mItems = names;
         mContext = context;
         mlistenner=listenner;
-
+        SharedPreferences sp=mContext.getSharedPreferences("user_info", MODE_PRIVATE);
+        mPermissions=sp.getString("permissions"," ");
     }
     private View mView;
     @Override
@@ -142,13 +148,32 @@ private onEditeListenner mlistenner;
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
+        
+        if (!mPermissions.contains("production")){
+            holder.add.setVisibility(View.GONE);
+        }
+        if (!mPermissions.contains("MPL")){
+            holder.delete.setVisibility(View.GONE);
+            holder.Edite.setVisibility(View.GONE);
+        }
+
+if (bay){
+    holder.bay.setVisibility(View.VISIBLE);
+    holder.bay.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mlistenner.Onselected(mItems.get(position));
+        }
+    });
+}
+
 try{
         holder.name.setText(mItems.get(position).getName());
 }catch (Exception e){
 
 }
 try {
-    holder.weight.setText(mItems.get(position).getWeight().toString() +" KG");
+    holder.weight.setText(mItems.get(position).getWeight().toString() +" pcs");
 }catch (Exception e){
 
 }
@@ -220,6 +245,7 @@ mView.setOnClickListener(new View.OnClickListener() {
 
         TextView name,weight,price;
    ImageView delete,Edite,add;
+   Button bay;
         public ViewHolder(View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.prod_name);
@@ -227,6 +253,7 @@ mView.setOnClickListener(new View.OnClickListener() {
             price=itemView.findViewById(R.id.price);
 
             delete=itemView.findViewById(R.id.delete);
+            bay=itemView.findViewById(R.id.bay);
             Edite=itemView.findViewById(R.id.edit);
             add=itemView.findViewById(R.id.add);
 

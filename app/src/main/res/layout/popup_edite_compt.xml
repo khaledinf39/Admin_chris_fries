@@ -4,7 +4,7 @@
     android:gravity="center"
     android:layout_gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="400dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bk_prod"
     android:layout_margin="5dp"
@@ -19,7 +19,7 @@
     app:layout_constraintLeft_toLeftOf="parent"
     android:text="@string/welcome"
     android:fontFamily="@font/saudi"
-    android:textSize="26dp"
+    android:textSize="20dp"
     android:textColor="#277C03"/>
 
     <TextView
@@ -31,28 +31,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="@string/edite_compt"
         android:fontFamily="@font/saudi"
-        android:textSize="22dp"
+        android:textSize="18dp"
         android:textColor="#414142"/>
 
 
     <EditText
         android:inputType="textEmailAddress"
         android:id="@+id/email"
-        android:layout_width="350dp"
-        android:gravity="right"
+        android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/t2"
-       app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
 
         android:hint="@string/email"
         android:fontFamily="@font/saudi"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:textColor="#3F51B5"/>
     <EditText
         android:inputType="textPersonName"
         android:id="@+id/user_name"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:gravity="right"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/email"
@@ -61,13 +58,13 @@
 
         android:hint="@string/name"
         android:fontFamily="@font/saudi"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:textColor="#3F51B5"/>
 
     <EditText
         android:inputType="textPassword"
         android:id="@+id/password"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:gravity="right"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/user_name"
@@ -76,13 +73,13 @@
 
         android:hint="@string/psw"
         android:fontFamily="@font/saudi"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:textColor="#3F51B5"/>
 
     <EditText
         android:inputType="textPassword"
         android:id="@+id/repassword"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:gravity="right"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/password"
@@ -91,9 +88,64 @@
 
         android:hint="@string/repsw"
         android:fontFamily="@font/saudi"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:textColor="#3F51B5"/>
-
+<LinearLayout
+    android:id="@+id/permissin_lay"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+android:weightSum="2"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/block"
+            android:fontFamily="@font/saudi"
+            android:id="@+id/block"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Production"
+            android:fontFamily="@font/saudi"
+            android:id="@+id/production"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/MPL"
+            android:fontFamily="@font/saudi"
+            android:id="@+id/MPL"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/MAL"
+            android:fontFamily="@font/saudi"
+            android:id="@+id/MAL"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/checkout"
+            android:fontFamily="@font/saudi"
+            android:id="@+id/checkout"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/MO"
+            android:fontFamily="@font/saudi"
+            android:id="@+id/MO"/>
+    </LinearLayout>
+</LinearLayout>
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -112,7 +164,7 @@
           android:fontFamily="@font/saudi"
           android:textColor="@color/white"
           android:background="@drawable/bk_bay2"
-          android:textSize="22dp"/>
+          android:textSize="16dp"/>
       <Button
           android:layout_width="0dp"
           android:layout_height="wrap_content"
@@ -122,7 +174,7 @@
           android:fontFamily="@font/saudi"
           android:textColor="@color/white"
           android:background="@drawable/bk_cancel"
-          android:textSize="22dp"/>
+          android:textSize="16dp"/>
 
   </LinearLayout>
 </LinearLayout>

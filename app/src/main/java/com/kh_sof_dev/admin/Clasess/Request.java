@@ -2,11 +2,19 @@ package com.kh_sof_dev.admin.Clasess;
 
 public class Request {
 
-    private String id,date,product,prod_id;
+    private String id,date,product,prod_id,users_id;
 private Double weight=0.0,price=0.0,count=0.0,talif=0.0;
 private int type;
 
     private  String nb;
+
+    public String getUsers_id() {
+        return users_id;
+    }
+
+    public void setUsers_id(String users_id) {
+        this.users_id = users_id;
+    }
 
     public String getNb() {
         return nb;

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +20,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.kh_sof_dev.admin.Activities.AllOdrer_activity;
 import com.kh_sof_dev.admin.Adapters.Requestes_adapter;
 import com.kh_sof_dev.admin.Clasess.Const;
 import com.kh_sof_dev.admin.Clasess.Request;
 import com.kh_sof_dev.admin.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,14 +78,16 @@ RecyclerView list;
         return  view;
     }
 
+
+
     @Override
     public void onStart() {
         super.onStart();
         AllOdrer_activity.onfilterListenner=new AllOdrer_activity.Onfilter() {
             @Override
-            public void onfilterDate(String date) {
-                FilterByDate(date);
-                Toast.makeText(getContext(),date,Toast.LENGTH_LONG).show();
+            public void onfilterDate(String date_in, String dateto) {
+                FilterByDate(date_in,dateto);
+                Toast.makeText(getContext(),dateto,Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -93,29 +98,57 @@ RecyclerView list;
             }
 
             @Override
-            public void onfilterWeight(String weight) {
-//                FilterByWeight(Double.parseDouble(weight));
-                FilterByName(weight);
+            public void onfilterUser(String user_id) {
+                FilterByUsers(user_id);
+            }
 
-                Toast.makeText(getContext(),weight,Toast.LENGTH_LONG).show();
+            @Override
+            public void onfilterPoint(String day) {
 
             }
+
+
         };
     }
     List<Request>  requestListFilter=new ArrayList<>();
 
-    private void FilterByDate(String date) {
+    private void FilterByDate(String date_in, String date_to) {
         if (requestListFilter.size()==0){
             requestListFilter.addAll(requestList);
         }
         List<Request>  RL_Filter=new ArrayList<>();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Date datein = null,dateto=null;
+        try {
+          datein  = sdf.parse(date_in);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+             dateto = sdf.parse(date_to);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         for (Request rqs:requestListFilter
         ) {
-            if (rqs.getDate().contains(date)){
-                RL_Filter.add(rqs);
+
+            try {
+                Date date = sdf.parse(rqs.getDate());
+                Log.d("date",date.toString()+"   ..."+datein.toString()+"  ----"+dateto.toString());
+                if (datein.before(date) && dateto.after(date)){
+                    Toast.makeText(getContext(),date.toString(),Toast.LENGTH_LONG).show();
+                    RL_Filter.add(rqs);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
+
         }
+
+
         requestListFilter.clear();
         requestListFilter.addAll(RL_Filter);
         adapter=new Requestes_adapter(getContext(),requestListFilter,null);
@@ -138,12 +171,31 @@ RecyclerView list;
         adapter=new Requestes_adapter(getContext(),requestListFilter,null);
         list.setAdapter(adapter);
     }
+    private void FilterByUsers(String id) {
+        if (requestListFilter.size()==0){
+            requestListFilter.addAll(requestList);
+        }
+        List<Request>  RL_Filter=new ArrayList<>();
+        for (Request rqs:requestListFilter
+        ) {
+            if (rqs.getUsers_id().equals(id)){
+                RL_Filter.add(rqs);
+            }
+
+        }
+        requestListFilter.clear();
+        requestListFilter.addAll(RL_Filter);
+        adapter=new Requestes_adapter(getContext(),requestListFilter,null);
+        list.setAdapter(adapter);
+    }
+
 
     private void fetch_data() {
     reference.addChildEventListener(new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+            String user_id=dataSnapshot.getKey();
             for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     if (requestList.size()==0){
@@ -151,6 +203,7 @@ RecyclerView list;
                     }
                     Request request=ds.getValue(Request.class);
                     request.setType(Const.completeNB);
+                    request.setUsers_id(user_id);
                     request.setId(dataSnapshot.getKey());
                     requestList.add(request);
                     adapter.notifyDataSetChanged();

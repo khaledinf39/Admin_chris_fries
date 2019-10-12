@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -31,6 +33,7 @@ private List<users> usersList;
 private Users_adapter adapter;
 private int usersNB=0;
 TextView nb_users;
+private Spinner pointDay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,19 @@ TextView nb_users;
 
             }
         }, 5000);
+        pointDay=findViewById(R.id.pointDay);
+        pointDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String[] point=getResources().getStringArray(R.array.pointDay);
+                filterBYDAy(point[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
        nb_users= (TextView)findViewById(R.id.users_nb);
         ImageView back=findViewById(R.id.back_btn);
         back.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +77,27 @@ TextView nb_users;
         Rv.setAdapter(adapter);
         fetch_data();
 
+    }
+
+    private void filterBYDAy(String s) {
+
+        if (s.equals("الكل")){
+            adapter=new Users_adapter(this,usersList,null);
+            Rv.setAdapter(adapter);
+            nb_users.setText(usersList.size() +" عدد العملاء  ");
+
+            return;
+        }
+       List<users> usersList_=new ArrayList<>();
+
+        for (users user : usersList) {
+            if (user.getPointDay().equals(s)){
+                usersList_.add(user);
+            }
+        }
+      adapter=new Users_adapter(this,usersList_,null);
+        Rv.setAdapter(adapter);
+        nb_users.setText(usersList_.size() +" عدد العملاء  ");
     }
 
     private void fetch_data() {

@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +49,8 @@ private List<Product> productList;
 private  String id;
 private RecyclerView recyclerView;
 private TextView name,email;
+private String mPermissions="";
+private ConstraintLayout add_cl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +70,9 @@ take_FCMtoken();
         }, 5000);
 
 productList=new ArrayList<>();
+add_cl=findViewById(R.id.add_cl);
+GetPermissions();
+
 my_users=findViewById(R.id.Myusers);
         logout=findViewById(R.id.logout);
         my_users.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +86,13 @@ my_users=findViewById(R.id.Myusers);
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,AllOdrer_activity.class));
+            }
+        });
+        ImageView list_compt=findViewById(R.id.list_compt);
+        list_compt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,Admins_activity.class));
             }
         });
 logout.setOnClickListener(new View.OnClickListener() {
@@ -141,15 +156,24 @@ fesh_data();
         });
     }
 
+    private void GetPermissions() {
+        if (!mPermissions.contains("MPL")){
+            add_cl.setVisibility(View.GONE);
+        }
+        if (!mPermissions.contains("MAL")){
+            findViewById(R.id.list_compt).setVisibility(View.GONE);
+        }
+    }
+
     private void edit_pop() {
-        final Dialog dialog=new Dialog(MainActivity.this);
+        final BottomSheetDialog dialog=new BottomSheetDialog(MainActivity.this);
         dialog.setContentView(R.layout.popup_edite_compt);
         final EditText email=dialog.findViewById(R.id.email);
         final EditText name=dialog.findViewById(R.id.user_name);
         final EditText pw=dialog.findViewById(R.id.password);
         final EditText repw=dialog.findViewById(R.id.repassword);
 
-        SharedPreferences sp=getSharedPreferences("user_info", MODE_PRIVATE);
+        final SharedPreferences sp=getSharedPreferences("user_info", MODE_PRIVATE);
         name.setText(sp.getString("name",""));
         email.setText(sp.getString("email",""));
 
@@ -190,7 +214,17 @@ fesh_data();
                 admin.setName(name_);
                 admin.setPassword(pw_);
                 DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Admins");
-                reference.setValue(admin);
+                reference.child(userID).child("name").setValue(admin.getName());
+                reference.child(userID).child("email").setValue(admin.getEmail());
+                reference.child(userID).child("password").setValue(admin.getPassword());
+
+                SharedPreferences.Editor Ed=sp.edit();
+                Ed.putString("name",admin.getName());
+                Ed.putString("email",admin.getEmail());
+                Ed.putString("password",admin.getPassword());
+                Ed.commit();
+                admin_info();
+
                 dialog.dismiss();
 
             }
@@ -203,6 +237,7 @@ fesh_data();
         reference.child("Notification").child("Token").setValue(token);
     }
 
+    private  String userID;
     private void admin_info() {
 
     name=findViewById(R.id.user_name);
@@ -211,6 +246,8 @@ fesh_data();
         SharedPreferences sp=getSharedPreferences("user_info", MODE_PRIVATE);
         name.setText(sp.getString("name",""));
         email.setText(sp.getString("email",""));
+        mPermissions=sp.getString("permissions","");
+        userID=sp.getString("userID","");
     }
 
     private void fesh_data() {

@@ -70,6 +70,7 @@ mView.setOnClickListener(new View.OnClickListener() {
         intent.putExtra("nb",mItems.get(position).getNb());
         intent.putExtra("token",mItems.get(position).getToken());
         intent.putExtra("wallet",mItems.get(position).getWallet());
+        intent.putExtra("pointDay",mItems.get(position).getPointDay());
 
        try {
            Location_ location=mItems.get(position).getLocation();

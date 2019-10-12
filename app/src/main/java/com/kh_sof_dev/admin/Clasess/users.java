@@ -1,10 +1,35 @@
 package com.kh_sof_dev.admin.Clasess;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.kh_sof_dev.admin.Activities.Odrer_activity;
+
+import static android.content.Context.MODE_PRIVATE;
+
 public class users {
     private  String name,phone,id,address;
-    private  String nb,token;
+    private  String nb,token,pointDay="الكل";
     private int request_wail_nb;
 private Double wallet=0.0;
+
+    public static boolean getpermissions(Context mcx, String checkout) {
+        SharedPreferences sp=mcx.getSharedPreferences("user_info", MODE_PRIVATE);
+       String mpermissions=sp.getString("permissions"," ");
+       Boolean res=false;
+        if (mpermissions.contains(checkout)){
+            res=true;
+        }
+        return res;
+    }
+
+    public String getPointDay() {
+        return pointDay;
+    }
+
+    public void setPointDay(String pointDay) {
+        this.pointDay = pointDay;
+    }
 
     public Double getWallet() {
         return wallet;
