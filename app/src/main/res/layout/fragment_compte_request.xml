@@ -6,7 +6,6 @@
     tools:context=".Fragments.compte_request"
     >
     <ScrollView
-        android:paddingBottom="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
@@ -34,10 +33,11 @@
                 />
             <android.support.v7.widget.RecyclerView
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="130dp"
+                android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/request_list"></android.support.v7.widget.RecyclerView>
+                android:id="@+id/request_list"/>
 
         </RelativeLayout>
     </ScrollView>

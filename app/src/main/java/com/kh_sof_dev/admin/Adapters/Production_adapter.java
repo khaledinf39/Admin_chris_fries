@@ -55,7 +55,8 @@ holder.date.setText(mItems.get(position).getDate());
         holder.talif.setText(mItems.get(position).getTalif().toString());
         holder.proct.setText(mItems.get(position).getProduction().toString());
         holder.order.setText(mItems.get(position).getOrder().toString());
-
+Double tot=mItems.get(position).getProduction()-mItems.get(position).getOrder();
+holder.total.setText(tot.toString());
 
 
     }
@@ -67,7 +68,7 @@ holder.date.setText(mItems.get(position).getDate());
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView proct,talif,date,order;
+        TextView proct,talif,date,order,total;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -75,6 +76,7 @@ holder.date.setText(mItems.get(position).getDate());
                        talif=itemView.findViewById(R.id.talef);
             date=itemView.findViewById(R.id.date);
             order=itemView.findViewById(R.id.order);
+            total=itemView.findViewById(R.id.total);
 
 
         }

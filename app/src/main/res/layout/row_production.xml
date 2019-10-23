@@ -23,30 +23,13 @@
            app:layout_constraintTop_toBottomOf="@+id/line1"
            app:layout_constraintBottom_toBottomOf="parent"
            android:orientation="horizontal"
-           android:weightSum="4"
+           android:weightSum="5"
            >
+
            <TextView
                android:gravity="right"
 
-               android:id="@+id/date"
-               android:layout_width="0dp"
-               android:layout_weight="1"
-               android:layout_height="wrap_content"
-               android:text="20/02/2019"
-               android:layout_marginLeft="10dp"
-               app:layout_constraintLeft_toLeftOf="parent"
-               app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintBottom_toBottomOf="parent"
-               android:fontFamily="@font/saudi"/>
-           <View
-               android:layout_width="1dp"
-               android:layout_height="match_parent"
-               android:background="#494848"
-               android:layout_marginLeft="3dp"/>
-           <TextView
-               android:gravity="right"
-
-               android:id="@+id/production"
+               android:id="@+id/total"
                android:layout_width="0dp"
                android:layout_weight="1"
                android:layout_height="wrap_content"
@@ -55,6 +38,7 @@
                app:layout_constraintTop_toTopOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"
                android:fontFamily="@font/saudi"/>
+
            <View
                android:layout_width="1dp"
                android:layout_height="match_parent"
@@ -87,10 +71,47 @@
                android:text=" 00"
                app:layout_constraintRight_toLeftOf="@+id/talef"
                app:layout_constraintLeft_toRightOf="@+id/date"
-               android:layout_marginRight="10dp"
+
                app:layout_constraintTop_toTopOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"
                android:fontFamily="@font/saudi"/>
+           <View
+               android:layout_width="1dp"
+               android:layout_height="match_parent"
+               android:background="#494848"
+               android:layout_marginLeft="3dp"/>
+
+           <TextView
+               android:gravity="right"
+
+               android:id="@+id/production"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_height="wrap_content"
+               android:text="00"
+               app:layout_constraintRight_toRightOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:fontFamily="@font/saudi"/>
+           <View
+               android:layout_width="1dp"
+               android:layout_height="match_parent"
+               android:background="#494848"
+               android:layout_marginLeft="3dp"/>
+           <TextView
+               android:gravity="right"
+
+               android:id="@+id/date"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_height="wrap_content"
+               android:text="20/02/2019"
+               android:layout_marginRight="10dp"
+               app:layout_constraintLeft_toLeftOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:fontFamily="@font/saudi"/>
+
        </LinearLayout>
 
 

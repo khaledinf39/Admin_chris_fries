@@ -63,8 +63,10 @@ take_FCMtoken();
             @Override
             public void run() {
 
-                findViewById(R.id.progress).setVisibility(View.GONE);
-                findViewById(R.id.noItem).setVisibility(View.VISIBLE);
+                if (productList.size()==0){
+                    findViewById(R.id.progress).setVisibility(View.GONE);
+                    findViewById(R.id.noItem).setVisibility(View.VISIBLE);
+                }
 
             }
         }, 5000);
@@ -214,9 +216,9 @@ fesh_data();
                 admin.setName(name_);
                 admin.setPassword(pw_);
                 DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Admins");
-                reference.child(userID).child("name").setValue(admin.getName());
-                reference.child(userID).child("email").setValue(admin.getEmail());
-                reference.child(userID).child("password").setValue(admin.getPassword());
+                reference.child(userID).child(userID).child("name").setValue(admin.getName());
+                reference.child(userID).child(userID).child("email").setValue(admin.getEmail());
+                reference.child(userID).child(userID).child("password").setValue(admin.getPassword());
 
                 SharedPreferences.Editor Ed=sp.edit();
                 Ed.putString("name",admin.getName());

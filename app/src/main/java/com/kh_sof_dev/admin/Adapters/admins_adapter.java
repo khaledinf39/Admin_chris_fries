@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -137,7 +138,8 @@ mView.setOnClickListener(new View.OnClickListener() {
         final CheckBox block=dialog.findViewById(R.id.block);
         final CheckBox production=dialog.findViewById(R.id.production);
         final CheckBox MPL=dialog.findViewById(R.id.MPL);
-getPermissions(mItems.get(position).getPermissin(),MAL,checkout,MO,block,production,MPL);
+        final CheckBox Point=dialog.findViewById(R.id.Point);
+getPermissions(mItems.get(position).getPermissin(),MAL,checkout,MO,block,production,MPL,Point);
 
 
         Button save=dialog.findViewById(R.id.save);
@@ -182,6 +184,7 @@ getPermissions(mItems.get(position).getPermissin(),MAL,checkout,MO,block,product
                 checkBox(admin.getPermissin(),block);
                 checkBox(admin.getPermissin(),production);
                 checkBox(admin.getPermissin(),MPL);
+                checkBox(admin.getPermissin(),Point);
 
                 DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Admins");
                 reference.child(mItems.get(position).getUid()).setValue(admin);
@@ -192,7 +195,7 @@ getPermissions(mItems.get(position).getPermissin(),MAL,checkout,MO,block,product
         dialog.show();
     }
 
-    private void getPermissions(List<permissin> permissin, CheckBox mal, CheckBox checkout, CheckBox mo, CheckBox block, CheckBox production, CheckBox mpl) {
+    private void getPermissions(List<permissin> permissin, CheckBox mal, CheckBox checkout, CheckBox mo, CheckBox block, CheckBox production, CheckBox mpl, CheckBox point) {
 
         for (permissin prm:permissin
              ) {
@@ -213,6 +216,9 @@ getPermissions(mItems.get(position).getPermissin(),MAL,checkout,MO,block,product
             }
             if (prm.getName().equals(mContext.getString(R.string.MPL))){
                 mpl.setChecked(true);
+            }
+            if (prm.getName().equals(mContext.getString(R.string.Point))){
+                point.setChecked(true);
             }
 
         }

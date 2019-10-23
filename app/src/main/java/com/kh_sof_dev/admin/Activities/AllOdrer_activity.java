@@ -1,11 +1,14 @@
 package com.kh_sof_dev.admin.Activities;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -44,8 +48,10 @@ import com.kh_sof_dev.admin.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AllOdrer_activity extends AppCompatActivity {
 
@@ -76,7 +82,7 @@ public interface Onfilter{
     };
     public static FragmentManager fragmentManager;
     public static Context context;
-    private EditText datein,dateto;
+    private Button datein,dateto;
     private Spinner nameSP,usersSP,daySp,orderTypeSP;
 private Double lat=0.0,lng=0.0;
     private ViewPager mViewPager;
@@ -100,7 +106,18 @@ back.setOnClickListener(new View.OnClickListener() {
         usersSP=findViewById(R.id.users);
         daySp=findViewById(R.id.days);
         orderTypeSP=findViewById(R.id.order_type);
-
+datein.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        showThePickers(1);
+    }
+});
+        dateto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showThePickers(2);
+            }
+        });
         FetchData();
 Button filter=findViewById(R.id.filter);
 filter.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +127,7 @@ filter.setOnClickListener(new View.OnClickListener() {
         String date_to=dateto.getText().toString();
 
         if (!date_in.isEmpty() && !date_to.isEmpty()){
-            FilterByDate(date_in,date_to);
+            FilterByAll();
         }
 
 
@@ -137,7 +154,8 @@ filter.setOnClickListener(new View.OnClickListener() {
     private void FetchData() {
         FirebaseDatabase database=FirebaseDatabase.getInstance();
         DatabaseReference reference1=database.getReference("Users");
-
+        users u=new users("0");
+        usersList.add(u);
         reference1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -163,6 +181,8 @@ filter.setOnClickListener(new View.OnClickListener() {
 
         DatabaseReference reference2=database.getReference("Products");
         final List<Product> productList=new ArrayList<>();
+        Product p =new Product("الكل ",0.0,0.0);
+        productList.add(p);
         reference2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -189,14 +209,15 @@ filter.setOnClickListener(new View.OnClickListener() {
 
 
     }
-String name_,user_id,day;
+String Productname_,user_id,day;
   int  orderTypeNB=1;
     private void SetONSPclick() {
         nameSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                name_=adapterProduct.getItem(position).getName();
-                FilterByName(name_);
+                Productname_=adapterProduct.getItem(position).getName();
+                FilterByAll();
+
             }
 
             @Override
@@ -210,7 +231,7 @@ String name_,user_id,day;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 user_id=adapterUsers.getItem(position).getId();
-                FilterByUsers(user_id);
+               FilterByAll();
                 Toast.makeText(AllOdrer_activity.this,adapterUsers.getItem(position).getName()
                         ,Toast.LENGTH_LONG).show();
 
@@ -269,6 +290,45 @@ switch (position){
         });
     }
 
+    Calendar calendar;
+    public DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+        public void onDateSet(DatePicker view, int selectedYear,
+                              int selectedMonth, int selectedDay) {
+            calendar= Calendar.getInstance();
+            calendar.set(Calendar.YEAR,selectedYear);
+            calendar.set(Calendar.DAY_OF_MONTH,selectedDay);
+            calendar.set(Calendar.MONTH,selectedMonth);
+//            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+
+            view.setVisibility(view.isShown()
+                    ?View.GONE
+                    :View.VISIBLE);
+            String formatedDate = format.format(calendar.getTime());
+            if (date==1){
+                datein.setText(formatedDate);
+
+            }else {
+                dateto.setText(formatedDate);
+
+            }
+
+
+        }
+    };
+
+    int date;
+    public void showThePickers(int i) {
+date=i;
+        calendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog;
+        datePickerDialog = new DatePickerDialog(this,
+                R.style.TimePickerTheme,datePickerListener,
+                calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
 
     RecyclerView list;
     private FirebaseDatabase database;
@@ -349,27 +409,22 @@ switch (position){
             });
         }
     List<Request>  requestListFilter=new ArrayList<>();
+    private void FilterByAll() {
+        String dateIN=datein.getText().toString();
+        String dateTO=dateto.getText().toString();
 
-    private void FilterByDate(String date_in, String date_to) {
+        String usersID=user_id;
+        String productName=Productname_;
+
 
         List<Request>  RL_Filter=new ArrayList<>();
 
         for (Request rqs:requestList
         ) {
+                    if (FilterByDate(dateIN,dateTO,rqs) && FilterByName(productName,rqs) && FilterByUsers(usersID,rqs)){
+                        RL_Filter.add(rqs);
+                    }
 
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-                Date date = sdf.parse(rqs.getDate());
-                Date datein = sdf.parse(date_in);
-                Date dateto = sdf.parse(date_to);
-
-                if (datein.before(date) && dateto.after(date)){
-                    RL_Filter.add(rqs);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
 
         }
@@ -377,32 +432,47 @@ switch (position){
         adapter=new Requestes_adapter(AllOdrer_activity.this,RL_Filter,null);
         list.setAdapter(adapter);
     }
-    private void FilterByName(String name) {
 
-        List<Request>  RL_Filter=new ArrayList<>();
-        for (Request rqs:requestList
-        ) {
-            if (rqs.getProduct().contains(name)){
-                RL_Filter.add(rqs);
+    private boolean FilterByDate(String date_in, String date_to,Request R) {
+
+        if (date_in.contains("من تاريخ") || date_to.contains("الى تاريخ")){
+            return true;
+        }
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            Date date = sdf.parse(R.getDate());
+            Date datein = sdf.parse(date_in);
+            Date dateto = sdf.parse(date_to);
+
+            if ((datein.before(date) && dateto.after(date)) || date.compareTo(dateto)==0 || date.compareTo(datein)==0 ){
+               return true;
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        adapter=new Requestes_adapter(AllOdrer_activity.this,RL_Filter,null);
-        list.setAdapter(adapter);
+        return false;
+
     }
-    private void FilterByUsers(String id) {
+    private boolean FilterByName(String Productname,Request R) {
 
-        List<Request>  RL_Filter=new ArrayList<>();
-        for (Request rqs:requestList
-        ) {
-            if (rqs.getUsers_id().equals(id)){
-                RL_Filter.add(rqs);
-            }
-
+        if (Productname.contains("الكل")){
+            return true;
         }
+        if (R.getProduct().contains(Productname)){
+            return true;
+        }
+        return false;
+    }
+    private boolean FilterByUsers(String id,Request R) {
+        if (id.equals("0")){
+            return true;
+        }
+        if (R.getUsers_id().contains(id)){
+            return true;
+        }
+        return false;
 
-        adapter=new Requestes_adapter(AllOdrer_activity.this,RL_Filter,null);
-        list.setAdapter(adapter);
     }
 
     private void onfilterPoint(String day) {

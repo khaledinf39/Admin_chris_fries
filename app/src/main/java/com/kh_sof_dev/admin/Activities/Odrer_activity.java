@@ -92,6 +92,9 @@ private Double lat=0.0,lng=0.0;
         setContentView(R.layout.activity_odrer_activity);
 
         Button addPointement=findViewById(R.id.pointment);
+        if (!users.getpermissions(this,"Point")){
+            addPointement.setVisibility(View.GONE);
+        }
         addPointement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +105,8 @@ ImageView back=findViewById(R.id.back_btn);
 back.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        finish();
+     startActivity(new Intent(Odrer_activity.this,Users_activity.class));
+     finish();
     }
 });
 
@@ -170,6 +174,9 @@ lng=bundle.getDouble("lng");
                 gotomap.setEnabled(false);
             }
         }
+        if (!users.getpermissions(this,"block")){
+            checkout.setVisibility(View.GONE);
+        }
 delete=findViewById(R.id.delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,11 +190,12 @@ delete=findViewById(R.id.delete);
                     @Override
                     public void onClick(View v) {
                         FirebaseDatabase database=FirebaseDatabase.getInstance();
-                        DatabaseReference reference=database.getReference("Requests");
-                        reference.child("Waite").child(userID).removeValue();
-                        reference.child("Current").child(userID).removeValue();
-                        reference.child("Complete").child(userID).removeValue();
-                        reference.child("Cancel").child(userID).removeValue();
+                        DatabaseReference reference=database.getReference();
+                        reference.child("Users").child(userID).child("status").setValue(0);
+                        reference.child("Requests").child("Waite").child(userID).removeValue();
+                        reference.child("Requests").child("Current").child(userID).removeValue();
+                        reference.child("Requests").child("Complete").child(userID).removeValue();
+                        reference.child("Requests").child("Cancel").child(userID).removeValue();
 
                         Toast.makeText(Odrer_activity.this,"تم الحذف بنجاح ",Toast.LENGTH_LONG).show();
 
@@ -213,7 +221,7 @@ delete=findViewById(R.id.delete);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab);
 //        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#56ce8b"));
         tabLayout.setSelectedTabIndicatorHeight((int) (4 * getResources().getDisplayMetrics().density));
-        tabLayout.setTabTextColors(Color.parseColor("#ffffff"), Color.parseColor("#011401"));
+        tabLayout.setTabTextColors(Color.parseColor("#ffffff"), Color.parseColor("#ffffff"));
 
         tabLayout.setupWithViewPager(mViewPager);
 
@@ -381,37 +389,16 @@ delete=findViewById(R.id.delete);
                 request.setProd_id(product.getId());
 
                 FirebaseDatabase database=FirebaseDatabase.getInstance();
-                DatabaseReference reference=database.getReference("Requests").child("Complete");
+                DatabaseReference reference=database.getReference("Requests").child("Waite");
                 reference.child(mUser.getId()).push().setValue(request);
-                add_wallet_newOredr(request.getPrice());
+
 
 
                 dialog.dismiss();
             }
         });
     }
-    private void add_wallet_newOredr(final Double newPrice){
-        final FirebaseDatabase database=FirebaseDatabase.getInstance();
-        final DatabaseReference reference=database.getReference("Users").child(mUser.getId());
-        reference.child("wallet").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    Double wallet=dataSnapshot.getValue(Double.class)+newPrice;
-                    reference.child("wallet").setValue(wallet);
-                }else {
-                    reference.child("wallet").setValue(newPrice);
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
     private void add_wallet(final Double newPrice){
         final FirebaseDatabase database=FirebaseDatabase.getInstance();
         final DatabaseReference reference=database.getReference("Users").child(mUser.getId());

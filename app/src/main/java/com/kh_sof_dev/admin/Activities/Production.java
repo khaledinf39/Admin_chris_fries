@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +30,8 @@ public class Production extends AppCompatActivity {
     private RecyclerView RV;
     private Production_adapter adapter;
     private List<production> productionList;
+    private TextView total_tot,order_ot,talef_tot,prodction_tot;
+    private Double total_tot_=0.0,order_tot_=0.0,talef_tot_=0.0,prodction_tot_=0.0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,11 @@ public class Production extends AppCompatActivity {
         RV.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.
                 VERTICAL,true));
 
+        order_ot=findViewById(R.id.order_tot);
+        total_tot=findViewById(R.id.total_tot);
+        prodction_tot=findViewById(R.id.production_tot);
+        talef_tot=findViewById(R.id.talef_tot);
+
        adapter=new Production_adapter(getApplicationContext(), productionList, null);
        RV.setAdapter(adapter);
        Bundle bundle=getIntent().getExtras();
@@ -77,6 +85,7 @@ public class Production extends AppCompatActivity {
                     findViewById(R.id.progress).setVisibility(View.GONE);
                 }
                 production production_=dataSnapshot.getValue(production.class);
+                addToTot(production_);
                 production_.setDate(dataSnapshot.getKey());
                 productionList.add(production_);
                 adapter.notifyDataSetChanged();
@@ -103,5 +112,18 @@ public class Production extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void addToTot(production p_) {
+        total_tot_+= p_.getProduction()- p_.getOrder();
+        prodction_tot_+= p_.getProduction();
+        talef_tot_+= p_.getTalif();
+        order_tot_+= p_.getOrder();
+
+
+        order_ot.setText(order_tot_.toString());
+        talef_tot.setText(talef_tot_.toString());
+        prodction_tot.setText(prodction_tot_.toString());
+        total_tot.setText(total_tot_.toString());
     }
 }

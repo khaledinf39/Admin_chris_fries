@@ -177,7 +177,7 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
                 }
                 reference.child("Complete").child(mUser.getId()).push().setValue(mItems.get(position));
                 reference.child("Current").child(mUser.getId()).child(mItems.get(position).getId()).removeValue();
-
+                add_wallet(mItems.get(position).getPrice());
                 save_archiv(
                         mItems.get(position).getCount(),
                         mItems.get(position).getTalif(),
@@ -225,7 +225,8 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
 
     private void save_requestNB() {
         final FirebaseDatabase database=FirebaseDatabase.getInstance();
-        final DatabaseReference reference=database.getReference("Users").child(mUser.getId()).child("request_wail_nb");
+        final DatabaseReference reference=database.getReference("Users")
+                .child(mUser.getId()).child("request_wail_nb");
 reference.addListenerForSingleValueEvent(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -275,7 +276,27 @@ reference.addListenerForSingleValueEvent(new ValueEventListener() {
 
 
     }
+    private void add_wallet(final Double newPrice){
+        final FirebaseDatabase database=FirebaseDatabase.getInstance();
+        final DatabaseReference reference=database.getReference("Users")
+                .child(mUser.getId());
+        reference.child("wallet").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Double wallet=dataSnapshot.getValue(Double.class)+newPrice;
+                    reference.child("wallet").setValue(wallet);
+                }else {
+                    reference.child("wallet").setValue(newPrice);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     private void delete_popup(final String type, final int position) {
 
         try {
@@ -292,6 +313,10 @@ reference.addListenerForSingleValueEvent(new ValueEventListener() {
         delet_pop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (type.equals("Waite")){
+                    save_requestNB();
+
+                }
                reference.child("Cancel").child(mUser.getId()).push().setValue(mItems.get(position));
                 reference.child(type).child(mUser.getId()).child(mItems.get(position).getId()).removeValue();
                 Toast.makeText(mContext,"تم الحذف بنجاح ",Toast.LENGTH_LONG).show();

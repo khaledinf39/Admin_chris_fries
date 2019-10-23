@@ -37,8 +37,10 @@
             android:src="@android:drawable/ic_menu_close_clear_cancel"/>
     </android.support.constraint.ConstraintLayout>
 <TextView
+    android:background="#92FFFFFF"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
+    android:gravity="center_vertical"
     android:text="عدد العملاء 0"
     app:layout_constraintTop_toBottomOf="@+id/header"
     android:id="@+id/users_nb"
@@ -48,13 +50,17 @@
     android:textSize="18dp"/>
     <Spinner
         android:fontFamily="@font/saudi"
-        android:textColor="@color/dark_mint"
+        android:textColor="@color/white"
         android:textSize="18dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintBottom_toBottomOf="@+id/users_nb"
         android:id="@+id/pointDay"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/bk_spinner"
+
         android:entries="@array/pointDay"/>
     <ScrollView
         app:layout_constraintTop_toBottomOf="@+id/users_nb"

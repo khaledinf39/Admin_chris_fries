@@ -82,6 +82,7 @@ mView.setOnClickListener(new View.OnClickListener() {
 
 
         mContext.startActivity(intent);
+
     }
 });
     }

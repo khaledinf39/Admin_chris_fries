@@ -144,6 +144,12 @@ android:weightSum="2"
             android:text="@string/MO"
             android:fontFamily="@font/saudi"
             android:id="@+id/MO"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Point"
+            android:fontFamily="@font/saudi"
+            android:id="@+id/Point"/>
     </LinearLayout>
 </LinearLayout>
   <LinearLayout

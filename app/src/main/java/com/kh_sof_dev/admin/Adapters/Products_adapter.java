@@ -149,7 +149,7 @@ public Boolean bay=false;
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
         
-        if (!mPermissions.contains("production")){
+        if (!mPermissions.contains("Production")){
             holder.add.setVisibility(View.GONE);
         }
         if (!mPermissions.contains("MPL")){
@@ -173,7 +173,7 @@ try{
 
 }
 try {
-    holder.weight.setText(mItems.get(position).getWeight().toString() +" pcs");
+    holder.weight.setText(mItems.get(position).getWeight().toString() +" kg");
 }catch (Exception e){
 
 }

@@ -11,10 +11,10 @@
     <string name="whight">الوزن</string>
     <string name="order_nb">رقم الطلب</string>
     <string name="order_date">تاريخ الطلب :</string>
-    <string name="order_count">الكمية المطلوبة</string>
+    <string name="order_count"> المطلوبة</string>
     <string name="order_talif">الكمية التالفة :</string>
 
-    <string name="talif"> الكمية التالفة</string>
+    <string name="talif">  التالفة</string>
     <string name="welcome">مرحبا !</string>
     <string name="order_details">قم بارسال تفاصيل طلبك</string>
     <string name="cancel">إلغاء</string>
@@ -37,14 +37,14 @@
     <string name="edite_compt"> معلومات حساب المسؤول</string>
     <string name="psw">كلمة السر</string>
     <string name="repsw">اعد كتابة كلمة السر</string>
-    <string name="notify_key">AAAAGjJll2I:APA91bFGcdDP_DcFTO_UldA38OvKxDKob537dhAIUHe80LQDUzlNWsoWc7xVUvInudFkWEJpRhz9O8CLR0NxLP7vkAb3xLPaKlqAiC-ag_aajkW9j_n6SmOgvC8SHE4fvvfuFh2Iq06G</string>
+    <string name="notify_key">AAAApjtuPOA:APA91bHG2YgmrdJhggyDnNa8J-d3RS9YZP3-lBKkvMuKhuVtkpcaVnm7w-z7OVMTM6npcy17r4la-_3DaNIAswba9sUI6dBsAQSP56hzcdz15REobSNTcoL8WUxeu82R9SVX_GAB_0Fu</string>
     <string name="ur_order_dane">تم انهاء طلبك بنجاح نشكرك على تعاملك معنا</string>
     <string name="ur_order_accept">تم قبول طلبك بنجاح سنقوم قريبا باصاله لك</string>
     <string name="ur_order_delete">تم حذف طلبك</string>
     <string name="pay">دفع</string>
     <string name="wallet">الدين</string>
     <string name="production">حركة الإنتاج</string>
-    <string name="production1">الكمية المنتجة</string>
+    <string name="production1"> المنتجة</string>
     <string name="date">التاريخ</string>
     <string name="production_txt">إنتاج كمية جديدة</string>
     <string name="All_orders">كل الطلبات</string>
@@ -58,8 +58,9 @@
     <string name="add_order">اضافة طلب</string>
     <string name="point">تحديد موعد التوصيل</string>
     <string name="pointDay">يوم الزيارة</string>
-    <string name="indate">من تاريخ yyyy/MM/dd  </string>
-    <string name="todate">الى تاريخ yyyy/MM/dd  </string>
+    <string name="indate">من تاريخ </string>
+    <string name="todate">الى تاريخ </string>
+    <string name="Point">تحديد يوم الزيارة</string>
     <array name="pointDay">
         <item>الكل</item>
         <item>السبت</item>

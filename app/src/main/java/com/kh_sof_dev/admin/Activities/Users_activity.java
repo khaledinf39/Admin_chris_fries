@@ -72,7 +72,7 @@ private Spinner pointDay;
         reference=database.getReference("Users");
         usersList=new ArrayList<>();
         Rv=findViewById(R.id.users_list);
-        Rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true));
+        Rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         adapter=new Users_adapter(this,usersList,null);
         Rv.setAdapter(adapter);
         fetch_data();
@@ -101,19 +101,22 @@ private Spinner pointDay;
     }
 
     private void fetch_data() {
-        reference.orderByChild("request_wail_nb");
+        reference.orderByChild("time_modify");
     reference.addChildEventListener(new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
             if (usersList.size()==0){
                 findViewById(R.id.progress).setVisibility(View.GONE);
             }
             users user=dataSnapshot.getValue(users.class);
             user.setId(dataSnapshot.getKey());
-            usersList.add(user);
-            adapter.notifyDataSetChanged();
-            usersNB++;
-           nb_users.setText(usersNB +" عدد العملاء  ");
+            if (user.getStatus()!=0){
+                usersList.add(user);
+                adapter.notifyDataSetChanged();
+                usersNB++;
+                nb_users.setText(usersNB +" عدد العملاء  ");
+            }
         }
 
         @Override

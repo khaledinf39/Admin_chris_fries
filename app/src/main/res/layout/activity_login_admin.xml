@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.login_admin"
-    android:background="@color/logo_color">
+    android:background="@drawable/logo_back">
     <android.support.constraint.ConstraintLayout
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -41,10 +41,10 @@
         app:layout_constraintTop_toBottomOf="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="88"
+        android:layout_weight="100"
         android:orientation="vertical"
-        android:paddingRight="37dp"
-        android:paddingLeft="37dp">
+        android:paddingRight="17dp"
+        android:paddingLeft="17dp">
 
 
 
@@ -62,11 +62,15 @@
 
 
             <LinearLayout
+                android:background="@drawable/logincart"
                 android:layout_marginTop="100dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/lay_cod"
+                android:paddingBottom="20dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
                 android:visibility="visible">
 
                 <TextView
@@ -93,7 +97,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/saudi"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
 
                     android:inputType="textEmailAddress"
                     android:gravity="start"
@@ -109,7 +114,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/saudi"
 
-                    android:textColor="@color/white"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+
                     android:inputType="textPassword"
                     android:gravity="end"
                     android:background="@drawable/bk_text"
@@ -134,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:text="تحقق"
                         android:fontFamily="@font/saudi"
-                        android:background="@drawable/bk_button_shape2"
+                        android:background="@drawable/bk_bay2"
                         android:textSize="20sp"/>
 
                     <ProgressBar

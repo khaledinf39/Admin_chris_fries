@@ -51,7 +51,7 @@ public class SpinAdapterProduct extends ArrayAdapter<Product> {
         label.setTextColor(Color.BLACK);
         // Then you can get the current item using the values array (Users array) and the current position
         // You can NOW reference each method you has created in your bean object (User class)
-        label.setText(values.get(position).getName());
+        label.setText(values.get(position).getName()+" "+values.get(position).getWeight().toString());
 
         // And finally return your dynamic (or custom) view for each spinner item
         return label;

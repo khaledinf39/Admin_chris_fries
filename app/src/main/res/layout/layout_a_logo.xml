@@ -6,19 +6,17 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:weightSum="100"
-    android:background="@color/dark_mint"
+    android:background="@drawable/logo_back"
     tools:context=".Activities.LogoAct">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="100"
-        android:orientation="horizontal"
-        android:weightSum="100"
-        android:gravity="center">
-        <ImageView
-            android:src="@drawable/logo"
+        android:layout_height="match_parent"
 
+        android:orientation="horizontal"
+       >
+        <ImageView
+            android:src="@drawable/logo_back"
+android:visibility="gone"
             android:id="@+id/logo_tv"
             android:layout_width="match_parent"
 

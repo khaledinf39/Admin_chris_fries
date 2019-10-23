@@ -10,7 +10,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class users {
     private  String name,phone,id,address;
     private  String nb,token,pointDay="الكل";
-    private int request_wail_nb;
+    private int request_wail_nb,status=1;
 private Double wallet=0.0;
 
     public static boolean getpermissions(Context mcx, String checkout) {
@@ -21,6 +21,14 @@ private Double wallet=0.0;
             res=true;
         }
         return res;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getPointDay() {
@@ -66,6 +74,10 @@ private Double wallet=0.0;
         this.name = name;
         this.phone = phone;
         this.nb = nb;
+    }
+
+    public users(String id) {
+        this.id = id;
     }
 
     private Location_ Location;

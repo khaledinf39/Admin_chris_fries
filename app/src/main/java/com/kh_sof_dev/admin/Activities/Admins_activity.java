@@ -79,10 +79,13 @@ if (admins.size()==0) {
 
                 Admin admin = dataSnapshot.getValue(Admin.class);
                 if (!Admin.getAdmin(Admins_activity.this).getEmail().equals(admin.getEmail())){
-
+                    if (admins.size()==0){
+                        findViewById(R.id.progress).setVisibility(View.GONE);
+                    }
                     admin.setUid(dataSnapshot.getKey());
                     for (DataSnapshot ds : dataSnapshot.child("Permissions").getChildren()
                     ) {
+
                         permissin prm = ds.getValue(permissin.class);
                         admin.getPermissin().add(prm);
                     }
@@ -90,9 +93,7 @@ if (admins.size()==0) {
                     adapter.notifyDataSetChanged();
                 }
 
-                if (admins.size()==0){
-                    findViewById(R.id.progress).setVisibility(View.GONE);
-                }
+
             }
 
             @Override

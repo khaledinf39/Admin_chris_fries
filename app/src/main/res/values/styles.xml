@@ -13,9 +13,18 @@
         <item name="android:textColor">#F44336</item>
 
     </style>
-    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+    <style name="mySpinnerItemStyle" parent="Theme.AppCompat.Light.Dialog">
 
         <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/saudi</item>
         <item name="android:textColor">@color/dark_mint</item>
+        <item name="android:textSize">22dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/dark_mint</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

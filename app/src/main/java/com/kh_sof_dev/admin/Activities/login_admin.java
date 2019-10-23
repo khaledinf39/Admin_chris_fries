@@ -176,7 +176,10 @@ private TextView password,email;
                 permission=permission+"MPL";
 
             }
+            if (prm.getName().equals(getString(R.string.Point))){
+                permission=permission+"Point";
 
+            }
         }
         Ed.putString("permissions", permission);
         Ed.commit();
