@@ -1,5 +1,6 @@
 package com.kh_sof_dev.admin.Activities;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -65,6 +66,7 @@ private Spinner pointDay;
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(Users_activity.this,MainActivity.class));
                 finish();
             }
         });
@@ -72,7 +74,7 @@ private Spinner pointDay;
         reference=database.getReference("Users");
         usersList=new ArrayList<>();
         Rv=findViewById(R.id.users_list);
-        Rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        Rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true));
         adapter=new Users_adapter(this,usersList,null);
         Rv.setAdapter(adapter);
         fetch_data();
@@ -101,8 +103,7 @@ private Spinner pointDay;
     }
 
     private void fetch_data() {
-        reference.orderByChild("time_modify");
-    reference.addChildEventListener(new ChildEventListener() {
+        reference.orderByChild("time_modify").addChildEventListener(new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 

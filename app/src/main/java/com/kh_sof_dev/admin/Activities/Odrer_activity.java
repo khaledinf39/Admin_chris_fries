@@ -392,9 +392,32 @@ delete=findViewById(R.id.delete);
                 DatabaseReference reference=database.getReference("Requests").child("Waite");
                 reference.child(mUser.getId()).push().setValue(request);
 
+                add_request();
 
 
                 dialog.dismiss();
+            }
+        });
+    }
+    private void add_request(){
+        final FirebaseDatabase database=FirebaseDatabase.getInstance();
+        final DatabaseReference reference=database.getReference("Users").child(userID);
+        long millis = System.currentTimeMillis();
+        reference.child("time_modify").setValue(millis);
+        reference.child("request_wail_nb").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    int nb=dataSnapshot.getValue(int.class)+1;
+                    reference.child("request_wail_nb").setValue(nb);
+                }else {
+                    reference.child("request_wail_nb").setValue(1);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
