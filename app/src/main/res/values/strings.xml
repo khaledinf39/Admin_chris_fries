@@ -38,9 +38,9 @@
     <string name="psw">كلمة السر</string>
     <string name="repsw">اعد كتابة كلمة السر</string>
     <string name="notify_key">AAAApjtuPOA:APA91bHG2YgmrdJhggyDnNa8J-d3RS9YZP3-lBKkvMuKhuVtkpcaVnm7w-z7OVMTM6npcy17r4la-_3DaNIAswba9sUI6dBsAQSP56hzcdz15REobSNTcoL8WUxeu82R9SVX_GAB_0Fu</string>
-    <string name="ur_order_dane">تم انهاء طلبك بنجاح نشكرك على تعاملك معنا</string>
-    <string name="ur_order_accept">تم قبول طلبك بنجاح سنقوم قريبا باصاله لك</string>
-    <string name="ur_order_delete">تم حذف طلبك</string>
+    <string name="ur_order_dane"> تم توصيل الطلب اليك وبرجاء في  حالة عدم الاستلام الاتصال بنا ونشكرك على تعاملك معنا</string>
+    <string name="ur_order_accept">تم قبول طلبك بنجاح سنقوم بتوصيله اليك قريبا </string>
+    <string name="ur_order_delete">نأسف لاعلامك انه تم حذف طلبك</string>
     <string name="pay">دفع</string>
     <string name="wallet">الدين</string>
     <string name="production">حركة الإنتاج</string>
@@ -61,6 +61,7 @@
     <string name="indate">من تاريخ </string>
     <string name="todate">الى تاريخ </string>
     <string name="Point">تحديد يوم الزيارة</string>
+    <string name="ur_req_succ">تم اضافة الطلب بنجاح</string>
     <array name="pointDay">
         <item>الكل</item>
         <item>السبت</item>

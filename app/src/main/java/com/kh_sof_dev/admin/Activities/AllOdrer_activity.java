@@ -423,11 +423,12 @@ date=i;
         ) {
                     if (FilterByDate(dateIN,dateTO,rqs) && FilterByName(productName,rqs) && FilterByUsers(usersID,rqs)){
                         RL_Filter.add(rqs);
-                    }
+                           }
 
 
 
         }
+        Toast.makeText(getApplicationContext(),"لديك "+RL_Filter.size()+"طلب",Toast.LENGTH_LONG).show();
 
         adapter=new Requestes_adapter(AllOdrer_activity.this,RL_Filter,null);
         list.setAdapter(adapter);

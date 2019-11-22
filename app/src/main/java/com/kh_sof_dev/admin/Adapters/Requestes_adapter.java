@@ -171,7 +171,9 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
             @Override
             public void onClick(View v) {
                 try {
-                    Post_notificition(mItems.get(position).getProduct(),mContext.getString(R.string.ur_order_dane),mUser.getToken());
+                    Post_notificition(mItems.get(position).getProduct(),mContext.getString(R.string.ur_order_dane)
+                            +"\n"+"الطلب رقم :"+mItems.get(position).getNb()
+                            +"\n"+"الكمية المطلوبة :"+mItems.get(position).getCount(),mUser.getToken());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -203,7 +205,10 @@ holder.price.setText(mItems.get(position).getPrice().toString()+"  EGP");
             @Override
             public void onClick(View v) {
                 try {
-                    Post_notificition(mItems.get(position).getProduct(),mContext.getString(R.string.ur_order_accept),mUser.getToken());
+                    Post_notificition(mItems.get(position).getProduct()
+                            ,mContext.getString(R.string.ur_order_accept)
+                                    +"\n"+"الطلب رقم :"+mItems.get(position).getNb()
+                                    +"\n"+"الكمية المطلوبة :"+mItems.get(position).getCount(),mUser.getToken());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -232,7 +237,9 @@ reference.addListenerForSingleValueEvent(new ValueEventListener() {
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         if (dataSnapshot.exists()){
             int nb=dataSnapshot.getValue(int.class)-1;
-            reference.setValue(nb);
+            if(nb<=0) {
+                reference.setValue(nb);
+            }
         }
     }
 
@@ -299,11 +306,7 @@ reference.addListenerForSingleValueEvent(new ValueEventListener() {
     }
     private void delete_popup(final String type, final int position) {
 
-        try {
-            Post_notificition(mItems.get(position).getProduct(),mContext.getString(R.string.ur_order_delete),mUser.getToken());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 
         final Dialog dialog=new Dialog(mContext);
         dialog.setContentView(R.layout.popup_delete);
@@ -320,6 +323,16 @@ reference.addListenerForSingleValueEvent(new ValueEventListener() {
                reference.child("Cancel").child(mUser.getId()).push().setValue(mItems.get(position));
                 reference.child(type).child(mUser.getId()).child(mItems.get(position).getId()).removeValue();
                 Toast.makeText(mContext,"تم الحذف بنجاح ",Toast.LENGTH_LONG).show();
+
+
+                try {
+                    Post_notificition(mItems.get(position).getProduct()
+                            ,mContext.getString(R.string.ur_order_delete)+"\n"+"الطلب رقم :"+mItems.get(position).getNb()
+                                    +"\n"+"الكمية المطلوبة :"+mItems.get(position).getCount(),mUser.getToken());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 mItems.remove( mItems.get(position));
                 notifyDataSetChanged();
                 dialog.dismiss();

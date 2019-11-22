@@ -174,10 +174,11 @@ lng=bundle.getDouble("lng");
                 gotomap.setEnabled(false);
             }
         }
-        if (!users.getpermissions(this,"block")){
-            checkout.setVisibility(View.GONE);
-        }
+
 delete=findViewById(R.id.delete);
+        if (!users.getpermissions(this,"block")){
+            delete.setVisibility(View.GONE);
+        }
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -331,7 +332,7 @@ delete=findViewById(R.id.delete);
         });
     }
     private void bay_popup(final Product product) {
-        final Dialog dialog=new Dialog(this);
+        final BottomSheetDialog dialog=new BottomSheetDialog(this);
         dialog.setContentView(R.layout.popup_bay);
         final EditText count=dialog.findViewById(R.id.order_count);
         final EditText talif=dialog.findViewById(R.id.order_talif);
@@ -388,16 +389,52 @@ delete=findViewById(R.id.delete);
                         ,priceTOT,cnt,tlf);
                 request.setProd_id(product.getId());
 
-                FirebaseDatabase database=FirebaseDatabase.getInstance();
-                DatabaseReference reference=database.getReference("Requests").child("Waite");
-                reference.child(mUser.getId()).push().setValue(request);
+                create_request(request);
 
-                add_request();
+
 
 
                 dialog.dismiss();
             }
         });
+    }
+
+    private void create_request(final Request request) {
+        FirebaseDatabase database=FirebaseDatabase.getInstance();
+        DatabaseReference reference_nb=database.getReference("App_number").child("requests_nb");
+        reference_nb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    int nb=dataSnapshot.getValue(int.class);
+                    add_newrequest(nb,request);
+                }else {
+                    add_newrequest(0,request);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void add_newrequest(int i, Request request) {
+        final DecimalFormat decimalFormat = new DecimalFormat("000000");
+        request.setNb(decimalFormat.format(i+1));
+
+        FirebaseDatabase database=FirebaseDatabase.getInstance();
+        DatabaseReference reference=database.getReference("Requests").child("Waite");
+        reference.child(mUser.getId()).push().setValue(request);
+
+
+        DatabaseReference reference_nb=database.getReference("App_number").child("requests_nb");
+        reference_nb.setValue(i+1);
+
+        Toast.makeText(this,this.getString(R.string.ur_req_succ),Toast.LENGTH_LONG).show();
+        add_request();
+
     }
     private void add_request(){
         final FirebaseDatabase database=FirebaseDatabase.getInstance();

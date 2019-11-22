@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,7 +67,7 @@ public Boolean bay=false;
     }
 
     private void addProductionFun(final String prod_id) {
-        final Dialog dialog=new Dialog(mContext);
+        final BottomSheetDialog dialog=new BottomSheetDialog(mContext);
         dialog.setContentView(R.layout.popup_add_production);
         Button ok=dialog.findViewById(R.id.checkout_btn);
         Button cancel=dialog.findViewById(R.id.cancel);
@@ -88,7 +89,7 @@ public Boolean bay=false;
                 }
                 Double price_=Double.parseDouble(price.getText().toString());
                 if (price_!=0  ){
-                    add_todata_base(price_,prod_id);
+//                    add_todata_base(price_,prod_id);
                     save_archiv(price_,prod_id);
                     dialog.dismiss();
                 }else {
@@ -100,24 +101,24 @@ public Boolean bay=false;
         });
     }
 
-    private void add_todata_base(final Double new_weight, String prod_id) {
-        FirebaseDatabase database =FirebaseDatabase.getInstance();
-        final DatabaseReference reference=database.getReference("Products").child(prod_id).child("weight");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    Double weight=dataSnapshot.getValue(Double.class)+new_weight;
-                    reference.setValue(weight);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
+//    private void add_todata_base(final Double new_weight, String prod_id) {
+//        FirebaseDatabase database =FirebaseDatabase.getInstance();
+//        final DatabaseReference reference=database.getReference("Products").child(prod_id).child("weight");
+//        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()){
+//                    Double weight=dataSnapshot.getValue(Double.class)+new_weight;
+//                    reference.setValue(weight);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
     private void save_archiv(final Double new_weight, String prod_id) {
 
